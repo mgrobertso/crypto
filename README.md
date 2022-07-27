@@ -1,7 +1,6 @@
 # Crypto
-
-This project  will retrieve crypto 
-market data and disply and filter them.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+This project  will retrieve crypto market data and disply and filter them.
 
 ## Features
 | Function | Description |Status|
