@@ -1,0 +1,27 @@
+<div class="mat-elevation-z8">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Symbol</th>
+        <th>Open</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Close</th>
+        <th>Volume</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let crypto of cryptoList" >
+        <td>{{crypto.timeStamp|date:"hh:mm:ss"}}</td>
+        <td>{{crypto.symbol}}</td>
+        <td>{{crypto.open|currency}}</td>
+        <td>{{crypto.high|currency}}</td>
+        <td>{{crypto.low|currency}}</td>
+        <td>{{crypto.close|currency}}</td>
+        <td>{{crypto.volume}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
