@@ -8,8 +8,9 @@ This project  will retrieve crypto market data and disply and filter them.
 | Retrieve Data | retrieve assets from API/backed |:white_check_mark:|
 | Filter| filter the assets  |:x:|
 | Trending| show trending assets |:x:|
-| Cypto Table| Table for data |:x:|
+| Crypto Table| Table for data |:x:|
 | Home page| main page |:x:|
+| Navigation| page navigation |:x:|
 | Login| login and out functions |:x:|
 | Graph| show graph of the assets  |:x:|
 

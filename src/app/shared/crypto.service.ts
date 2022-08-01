@@ -16,7 +16,7 @@ import { HttpClient,HttpErrorResponse} from "@angular/common/http";
   
       getCrypto(): Observable<Icrypto[]> {
         return this.http.get<Icrypto[]>(this.cryptoUrl).pipe(tap(data=>console.log('All',JSON.stringify(data))),catchError(this.handleError));
-          //implment later
+          //implement later
       }
   
   
