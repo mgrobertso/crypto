@@ -1,8 +1,6 @@
 # Crypto [![Build Status](https://github.com/mgrobertso/crypto/actions/workflows/manual.yml/badge.svg)](https://github.com/mgrobertso/crypto)
 This project  will retrieve crypto market data and disply and filter them.
-![doge](https://foreignpolicy.com/wp-content/themes/foreign-policy-2017/assets/src/images/power-maps/future-of-money-part-2/Bitcoin.png)
-
-
+<img src="https://foreignpolicy.com/wp-content/themes/foreign-policy-2017/assets/src/images/power-maps/future-of-money-part-2/Bitcoin.png" width="200" height="200">
 
 ## Features
 | Function | Description |Status|
