@@ -13,7 +13,10 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   Title:string ="Crypto";
   errorMessage:string='';
   sub: Subscription|undefined;
+
   cryptoList:Icrypto [] =[];
+  dtOptions: DataTables.Settings = {};
+
 
 
   constructor(private cryptoDataServie: CryptoService) {}
