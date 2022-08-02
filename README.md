@@ -7,7 +7,7 @@ This project  will retrieve crypto market data and display and filter them.
 ## Features
 | Function | Description |Status|
 | --- | --- |---|
-| Retrieve Data | retrieve assets from API/backed |:white_check_mark:|
+| Retrieve Data | retrieve assets from API/backed |:x:|
 | Filter| filter the assets  |:x:|
 | Trending| show trending assets |:x:|
 | Crypto Table| table for data |:x:|
