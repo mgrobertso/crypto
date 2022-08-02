@@ -1,10 +1,11 @@
 export interface Icrypto
 {
-  timeStamp: string;
-  symbol:string;
-  open: number;
-  high:number;
-  low:number;
-  close: number;
-  volume:number;
+last_updated: string;
+symbol:string;
+image:string;
+current_price:number;
+open:number;
+high_24h:number;
+low_24h:number;
+total_volume:number;
 }

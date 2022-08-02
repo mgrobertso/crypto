@@ -8,7 +8,7 @@ import { HttpClient,HttpErrorResponse} from "@angular/common/http";
   })
   
   export class CryptoService{
-      private cryptoUrl =  'api/cryptodata/crypto.json';
+      private cryptoUrl =  'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd';
       constructor (private http: HttpClient)
       {
         

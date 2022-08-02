@@ -1,8 +1,8 @@
 thead{
-  background-color: aliceblue;
+  background-color: lightblue;
 }
 tr:hover{
-  background-color: blueviolet;
+  background-color: aliceblue;
   font-weight: bold;
 }
 
@@ -11,5 +11,9 @@ td{
 }
 
 #cryptodata{
-  vertical-align: bottom;
+  vertical-align: baseline;
+}
+table{
+  border: solid 1px black;
+  overflow-x:auto;
 }
