@@ -1,5 +1,5 @@
-<div>
-  <table datatable {dtTrigger]="dtTrigger" class="row-border hover">
+<div class="container-fluid">
+  <table class="table">
     <thead>
       <tr>
         <th>Time</th>
@@ -9,9 +9,10 @@
         <th>Low</th>
         <th>Close</th>
         <th>Volume</th>
+        <th>Favorite</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="cryptodata">
       <tr *ngFor="let crypto of cryptoList" >
         <td>{{crypto.timeStamp|date:"hh:mm:ss"}}</td>
         <td>{{crypto.symbol}}</td>
@@ -20,6 +21,7 @@
         <td>{{crypto.low|currency}}</td>
         <td>{{crypto.close|currency}}</td>
         <td>{{crypto.volume}}</td>
+        <td><button>Add</button></td>
       </tr>
     </tbody>
   </table>

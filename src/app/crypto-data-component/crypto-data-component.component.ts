@@ -15,14 +15,14 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   sub: Subscription|undefined;
 
   cryptoList:Icrypto [] =[];
-  dtOptions: DataTables.Settings = {};
+  
 
 
 
-  constructor(private cryptoDataServie: CryptoService) {}
+  constructor(private cryptoDataService: CryptoService) {}
 
   ngOnInit():void{
-    this.sub = this.cryptoDataServie.getCrypto().subscribe({
+    this.sub = this.cryptoDataService.getCrypto().subscribe({
       next: cryptoList=>{
         this.cryptoList = cryptoList;
       },
