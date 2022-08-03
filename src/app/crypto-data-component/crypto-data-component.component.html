@@ -13,7 +13,7 @@
     </thead>
     <tbody id="cryptodata">
       <tr *ngFor="let crypto of cryptoList">
-        <th>{{crypto.last_updated|date}}</th>
+        <td>{{crypto.last_updated|date:"short"}}</td>
         <td>{{crypto.symbol}}</td>
         <td><img [attr.src]="crypto.image" width="50" ></td>
         <td>{{crypto.current_price|currency}}</td>

@@ -1,5 +1,6 @@
 thead{
   background-color: lightblue;
+  font-size: large;
 }
 tr:hover{
   background-color: aliceblue;
@@ -8,6 +9,8 @@ tr:hover{
 
 td{
   vertical-align: bottom;
+  font-size: medium;
+  overflow-x:auto;
 }
 
 #cryptodata{
