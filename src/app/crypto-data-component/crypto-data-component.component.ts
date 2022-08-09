@@ -1,7 +1,10 @@
-import {  Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { CryptoService } from '../shared/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -10,29 +13,44 @@ import { Icrypto } from './crypto-data-component-datasource';
   styleUrls: ['./crypto-data-component.component.css']
 })
 export class CryptoDataComponentComponent implements OnInit, OnDestroy {
-  Title:string ="Crypto";
-  errorMessage:string='';
-  sub: Subscription|undefined;
+  Title: string = "Crypto";
+  errorMessage: string = '';
+  sub: Subscription | undefined;
+  displayedColumns: string[] = ['market_cap_rank', 'image', 'name', 'current_price', "high_24h", 'low_24h', 'total_volume'];
+  dataSource!: MatTableDataSource<Icrypto>;
 
-  cryptoList:Icrypto [] =[];
-  
+  constructor(private cryptoDataService: CryptoService) { }
 
+  @ViewChild(MatSort)
+  sort!: MatSort;
 
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
-  constructor(private cryptoDataService: CryptoService) {}
+  ngOnInit(): void {
+    this.sub = this.cryptoDataService.getCrypto().subscribe(stream => {
+      this.dataSource = new MatTableDataSource(stream)
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
 
-  ngOnInit():void{
-    this.sub = this.cryptoDataService.getCrypto().subscribe({
-      next: cryptoList=>{
-        this.cryptoList = cryptoList;
-      },
-      error:err => this.errorMessage = err
     });
-
   }
-  ngOnDestroy():void{
+
+  ngOnDestroy(): void {
     this.sub?.unsubscribe();
   }
 
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      console.log(`Sorted ${sortState.direction}ending`);
+    } else {
+      console.log('Sorting cleared');
+    }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
 }
