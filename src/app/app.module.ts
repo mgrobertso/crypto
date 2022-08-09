@@ -11,14 +11,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
+import { NgChartsModule } from 'ng2-charts';
+import { DetailComponent } from './detail.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CryptoDataComponentComponent
-  ],
+  declarations: [AppComponent, CryptoDataComponentComponent, DetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,15 +29,16 @@ import { RouterModule } from '@angular/router';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    NgChartsModule,
     MatProgressSpinnerModule,
     RouterModule.forRoot([
-      {path:'crypto', component: CryptoDataComponentComponent },
-      {path:'crypto/:id', component: CryptoDataComponentComponent},
-      {path:'', redirectTo: '/', pathMatch:'full'},
-      {path:'**', redirectTo:'/', pathMatch:'full'}
-    ])
+      { path: 'crypto', component: CryptoDataComponentComponent },
+      { path: 'crypto/:id', component: DetailComponent },
+      { path: '', redirectTo: 'crypto', pathMatch: 'full' },
+      { path: '**', redirectTo: '/', pathMatch: 'full' },
+    ]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

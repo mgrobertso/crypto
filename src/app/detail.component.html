@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <h1>{{ pageTitle }}</h1>
+
+  <canvas
+    baseChart
+    [datasets]="chartData"
+    [type]="'line'"
+    [legend]="true"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+  ></canvas>
+
+  <button class="btn" (click)="onBack()">
+    <i class="fa fa-chevron-left"></i>Back
+  </button>
+</div>
