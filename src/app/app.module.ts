@@ -12,6 +12,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    RouterModule.forRoot([
+      {path:'crypto', component: CryptoDataComponentComponent },
+      {path:'crypto/:id', component: CryptoDataComponentComponent},
+      {path:'', redirectTo: '/', pathMatch:'full'},
+      {path:'**', redirectTo:'/', pathMatch:'full'}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
