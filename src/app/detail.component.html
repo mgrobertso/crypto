@@ -1,16 +1,23 @@
 <div class="container-fluid">
-  <h1>{{ pageTitle }}</h1>
+  <div class="container">
+    <canvas
+      baseChart
+      [type]="'line'"
+      [legend]="true"
+      [datasets]="data"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+    ></canvas>
+  </div>
 
-  <canvas
-    baseChart
-    [datasets]="chartData"
-    [type]="'line'"
-    [legend]="true"
-    [labels]="chartLabels"
-    [options]="chartOptions"
-  ></canvas>
-
-  <button class="btn" (click)="onBack()">
-    <i class="fa fa-chevron-left"></i>Back
-  </button>
+  <div class="container">
+    <button class="btn btn-primary" (click)="onBack()">
+      <i class="fa fa-chevron-left"></i>Back
+    </button>
+    <button class="btn btn-primary" (click)="onHome()">Home</button>
+    <button class="btn btn-primary" (click)="onNext()">
+      Next
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
 </div>
