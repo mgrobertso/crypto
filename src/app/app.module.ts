@@ -39,12 +39,7 @@ import { FooterComponent } from './footer.component';
     NgChartsModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
-    RouterModule.forRoot([
-      { path: 'crypto', component: CryptoDataComponentComponent },
-      { path: 'crypto/:id', component: DetailComponent },
-      { path: '', redirectTo: 'crypto', pathMatch: 'full' },
-      { path: '**', redirectTo: '/', pathMatch: 'full' },
-    ]),
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],
