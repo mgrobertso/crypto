@@ -5,7 +5,6 @@ export interface Icrypto {
     symbol: string;
     image: string;
     current_price: number;
-    open: number;
     high_24h: number;
     low_24h: number;
     total_volume: number;
