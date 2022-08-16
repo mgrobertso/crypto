@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { CryptoService } from '../shared/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crypto-data-component',
@@ -25,8 +26,10 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     'total_volume',
   ];
   dataSource!: MatTableDataSource<Icrypto>;
+  id:string ='';
 
-  constructor(private cryptoDataService: CryptoService) {}
+  constructor(private cryptoDataService: CryptoService,
+    private router: Router) {}
 
   @ViewChild(MatSort)
   sort!: MatSort;
@@ -57,5 +60,12 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getCrypto():void
+  {
+    this.router
+      .navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate(['/crypto/' + 'bitcoin']));
   }
 }

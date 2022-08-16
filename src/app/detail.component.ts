@@ -51,8 +51,7 @@ export class DetailComponent implements OnInit, OnDestroy {
             this.backpage = this.cryptodata[Number(i) - 1].id;
             this.nextpage = this.cryptodata[Number(i) + 1].id;
           }
-        } else {
-        }
+        } 
       }
 
       this.data = [
