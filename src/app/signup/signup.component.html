@@ -1,0 +1,36 @@
+<mat-card class="card">
+  <mat-vertical-stepper [linear]="true"  #stepper>
+    <form [formGroup]="registerForm" #form="ngForm">
+      <mat-step >
+        <ng-template matStepLabel>Fill out your name</ng-template>
+          <label>First Name</label>
+          <input step="firstNameCtrl"  matInput formControlName="firstNameCtrl" required>
+          <label>Last Name</label>
+          <input matInput formControlName="lastNameCtrl" required>
+          <button class="btn btn-primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step >
+        <ng-template matStepLabel>Create a username</ng-template>
+        <label>User Name</label>
+        <input  formControlName="userNameCtrl"  matInput>
+        <button class="btn btn-primary" matStepperPrevious >Back</button>
+        <button class="btn btn-primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Enter a email</ng-template>
+        <label>Email</label>
+        <input type="email" formControlName="emailCtrl"  matInput>
+        <button class="btn btn-primary" matStepperPrevious >Back</button>
+        <button class="btn btn-primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Enter a password</ng-template>
+        <label>Password</label>
+        <input [type]="'password'" formControlName="passwordCtrl">
+        <button class="btn btn-primary" matStepperPrevious >Back</button>
+        <button (click)="createUser()" class="btn btn-success">Submit</button>
+      </mat-step>
+    </form>
+  </mat-vertical-stepper>
+</mat-card>
+{{form.value|json}}

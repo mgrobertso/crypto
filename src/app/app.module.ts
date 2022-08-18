@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CryptoDataComponentComponent } from './crypto-data-component/crypto-data-component.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, Validators } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -20,9 +20,15 @@ import { NgChartsModule } from 'ng2-charts';
 import { DetailComponent } from './detail.component';
 import { MenuComponent } from './menu.component';
 import { FooterComponent } from './footer.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @NgModule({
-  declarations: [AppComponent, CryptoDataComponentComponent, DetailComponent, MenuComponent, FooterComponent],
+  declarations: [AppComponent, CryptoDataComponentComponent, DetailComponent, MenuComponent, FooterComponent, LoginComponent, SignupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,15 +39,19 @@ import { FooterComponent } from './footer.component';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
+    MatStepperModule,
     MatCardModule,
     MatSortModule,
     MatIconModule,
     NgChartsModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    MatMenuModule
   ],
-  providers: [],
+  providers: [{provide:STEPPER_GLOBAL_OPTIONS,
+  useValue:{ displayDefaultIndicatorType: false}}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

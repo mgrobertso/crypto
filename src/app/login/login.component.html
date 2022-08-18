@@ -1,0 +1,23 @@
+<mat-card>
+    <form #form="ngForm">
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>User Name</mat-label>
+          <input id="name" name="name" matInput class="form-control" ngModel>
+        </mat-form-field>
+      </div>
+      <div class="form-item">
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input type="password" name="password"class="form-control" matInput ngModel>
+        </mat-form-field>
+      </div>
+      <button routerLink="/login" class="btn btn-success">Login</button>
+      <button routerLink="/register"class="btn btn-primary">Register</button>
+    </form>
+
+
+
+</mat-card>
+
+{{form.value|json}}
