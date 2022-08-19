@@ -23,7 +23,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     'current_price',
     'high_24h',
     'low_24h',
-    'total_volume',
+    'total_volume'
   ];
   dataSource!: MatTableDataSource<Icrypto>;
   id:string ='';
@@ -67,5 +67,19 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(['/crypto/' + 'bitcoin']));
+  }
+
+  addWatch(data:any)
+  {
+    //implement server side later
+    //change button to remove
+    //for now show name of added
+    alert(data);
+  }
+
+  removeWatch(data:any)
+  {
+    //implement later
+
   }
 }

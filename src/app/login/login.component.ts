@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+
 
 @Component({
   selector: 'app-login',
@@ -7,19 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  @Output()
   isLogged:boolean=false;
+  loginData:any;
 
-  login(userName:string, password:string){
-    console.log(userName);
-    console.log(password);
-
-    this.isLogged =userName=='admin'&&password=='admin';
-    localStorage.setItem('isLogged',this.isLogged?"true":"false");
+  onClickSubmit(data:any){
+    console.log("username:" +data.name,"password:"+data.password);
+    //implement validation and server side validation later.
+    //routs homepage for now
   }
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

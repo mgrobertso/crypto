@@ -74,6 +74,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Volume</th>
       <td mat-cell *matCellDef="let element">
         {{ element.total_volume | number }}
+        <button *ngIf="element.added==false||null" (click)="addWatch(element.id)" class="btn btn-primary">Add</button>
+        <button *ngIf="element.added==true" (click)="addWatch(element.id)" class="btn btn-primary">Remove</button>
       </td>
     </ng-container>
 

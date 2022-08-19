@@ -1,40 +1,63 @@
+import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { from, pipe } from 'rxjs';
 import { user } from '../shared/user';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  formData: user={"first_name":' ',"last_name":'',"username":'',"password":'',"email":'','watch_list':[]};
+  formData: user = {
+    first_name: 'Enter First N',
+    last_name: '',
+    username: '',
+    email: '',
+    password: '',
+    watch_list: [],
+  };
 
-  registerForm = new FormGroup({
-    firstNameCtrl: new FormControl('',Validators.required),
-    lastNameCtrl: new FormControl('',Validators.required),
-    userNameCtrl: new FormControl('',Validators.required),
-    emailCtrl: new FormControl('',Validators.required),
-    passwordCtrl: new FormControl('',Validators.required)
-  });
+  registerForm!:FormGroup;
 
-  constructor(private router: Router) { }
+  get controlArray(): AbstractControl | null { return this.registerForm.get('controlArray'); }
+
+  constructor(private router: Router, private _formBuilder: FormBuilder) {}
+
 
   ngOnInit(): void {
-
+    this.registerForm = this._formBuilder.group({
+      controlArray: this._formBuilder.array([
+        this._formBuilder.group({
+          firstNameCtrl:['',Validators.required],
+          lastNameCtrl:['',Validators.required]
+        }),this._formBuilder.group({
+          emailCtrl:['',Validators.required]
+        }),
+        this._formBuilder.group({
+          userNameCtrl:['',Validators.required],
+          passwordCtrl:['',Validators.required]
+        })
+      ])
+    });
   }
 
-  createUser()
-  {
-    this.formData.first_name = String(this.registerForm.controls.firstNameCtrl.value);
-    this.formData.last_name = String(this.registerForm.controls.lastNameCtrl.value);
-    this.formData.username = String(this.registerForm.controls.userNameCtrl.value);
-    this.formData.email = String(this.registerForm.controls.emailCtrl.value);
-    this.formData.password = String(this.registerForm.controls.passwordCtrl.value);
-    console.log(this.formData);
-    this.router.navigateByUrl("/crypto");
-  }
+  onSubmit(data:any) {
+    this.formData.first_name = data[0].firstNameCtrl
+    this.formData.last_name = data[0].lastNameCtrl;
+    this.formData.username = data[2].userNameCtrl;
+    this.formData.email = data[1].emailCtrl;
+    this.formData.password = data[2].passwordCtrl;
 
+    console.log("User created:" + this.formData.first_name +" "+this.formData.last_name );
+    this.router.navigateByUrl('/crypto');
+
+    //implement server side validation and insert later, for routs back to home page
   }
+}
