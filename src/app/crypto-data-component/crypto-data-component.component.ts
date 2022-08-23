@@ -6,6 +6,7 @@ import { CryptoService } from '../shared/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { user } from '../shared/user';
 
 @Component({
   selector: 'app-crypto-data-component',
@@ -69,7 +70,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
       .then(() => this.router.navigate(['/crypto/' + 'bitcoin']));
   }
 
-  addWatch(data:any)
+  addWatch(data:user)
   {
     //implement server side later
     //change button to remove
@@ -77,7 +78,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     alert(data);
   }
 
-  removeWatch(data:any)
+  removeWatch(data:user)
   {
     //implement later
 

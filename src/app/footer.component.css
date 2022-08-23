@@ -1,5 +1,8 @@
 .menu{
   background-color: rgb(62, 126, 164);
-  margin-top: 10px;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
 }
+
 

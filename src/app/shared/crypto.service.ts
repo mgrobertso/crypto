@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Icrypto } from '../crypto-data-component/crypto-data-component-datasource';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { user } from './user';
 
 
 
@@ -9,7 +10,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
   providedIn: 'root',
 })
 export class CryptoService {
-  private cryptoUrl ='https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd';
+  private cryptoUrl ='https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false';
+  private url = '/assets/cryptodata.json';
   constructor(private http: HttpClient) {}
 
  getCrypto(): Observable<Icrypto[]> {
@@ -18,6 +20,11 @@ export class CryptoService {
       catchError(this.handleError)
     );
     //implement later
+  }
+
+  getuser():Observable<user[]>
+  {
+    return this.http.get<user[]>(this.url).pipe(tap((data)=>console.log('All',JSON.stringify(data))), catchError(this.handleError))
   }
 
 

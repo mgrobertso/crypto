@@ -1,19 +1,19 @@
-<mat-card>
-    <form #loginData="ngForm" (ngSubmit)="onClickSubmit(loginData.value)">
+<mat-card class="card">
       <div class="form-group">
-        <mat-form-field appearance="fill">
-          <mat-label>User Name</mat-label>
-          <input id="name"  type="text" name="name" matInput class="form-control" ngModel [required]="true">
-        </mat-form-field>
+        <form #loginData="ngForm" (ngSubmit)="onClickSubmit(loginData.value)">
+            <mat-form-field appearance="fill">
+              <mat-label>User Name</mat-label>
+              <input id="name"  type="text" name="name" matInput class="form-control" ngModel [required]="true">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input type="password" name="password"class="form-control" matInput ngModel [required]="true">
+            </mat-form-field>
+          <div>
+          <button type="submit" class="btn btn-success">Login</button>
+          <button routerLink="/register"class="btn btn-primary">Register</button>
+          </div>
+        </form>
       </div>
-      <div class="form-item">
-        <mat-form-field appearance="fill">
-          <mat-label>Password</mat-label>
-          <input type="password" name="password"class="form-control" matInput ngModel [required]="true">
-        </mat-form-field>
-      </div>
-      <button type="submit" class="btn btn-success">Login</button>
-      <button routerLink="/register"class="btn btn-primary">Register</button>
-    </form>
-</mat-card>
+    </mat-card>
 

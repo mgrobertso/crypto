@@ -3,9 +3,12 @@
 @import "~font-awesome/css/font-awesome.min.css";
 
 
-html, body { margin:0 auto; height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+html, body,app-root { height: 100%; }
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   background: linear-gradient(to top, #33ccff -100%, #ff99cc 128%);
+  margin-top: 0;
+  margin-bottom: 0;
  }
 .mat-card{
   opacity: 95%;
