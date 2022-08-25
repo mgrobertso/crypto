@@ -1,5 +1,16 @@
-<div class="container-fluid">
-  <div class="container">
+<mat-card class="card">
+    <div>
+      <div class="container">
+        <button class="btn btn-primary" (click)="onBack()">
+          <i class="fa fa-chevron-left"></i>Back
+        </button>
+        <button class="btn btn-primary" (click)="onHome()">Home</button>
+        <button class="btn btn-primary" (click)="onNext()">
+          Next
+          <i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
+      <span style="text-align:center;">  <h1>{{legend}} High Low</h1></span>
     <canvas
       baseChart
       [type]="'line'"
@@ -9,15 +20,4 @@
       [options]="chartOptions"
     ></canvas>
   </div>
-
-  <div class="container">
-    <button class="btn btn-primary" (click)="onBack()">
-      <i class="fa fa-chevron-left"></i>Back
-    </button>
-    <button class="btn btn-primary" (click)="onHome()">Home</button>
-    <button class="btn btn-primary" (click)="onNext()">
-      Next
-      <i class="fa fa-chevron-right"></i>
-    </button>
-  </div>
-</div>
+</mat-card>

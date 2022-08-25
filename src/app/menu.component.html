@@ -1,0 +1,15 @@
+<mat-toolbar class="menu">
+  <a routerLink="/crypto">
+    <img class="logo" src="../assets/logo.png" alt="Logo" />
+    <span class="title">Crypto</span></a>
+
+    <span class="menu-spacer"></span>
+    <button class="menu" mat-icon-button  mat-button [matMenuTriggerFor]="menu" class="icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button routerLink="login" mat-menu-item>Login</button>
+      <button routerLink="register" mat-menu-item>Register</button>
+    </mat-menu>
+
+</mat-toolbar>

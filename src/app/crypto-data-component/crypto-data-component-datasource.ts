@@ -22,4 +22,5 @@ export interface Icrypto {
     ath_change_percentage: number;
     ath_date: Date;
     roi: number;
+    added:boolean;
 }
