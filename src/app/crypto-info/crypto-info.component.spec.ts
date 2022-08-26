@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginComponent } from './login.component';
+import { CryptoInfoComponent } from './crypto-info.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('CryptoInfoComponent', () => {
+  let component: CryptoInfoComponent;
+  let fixture: ComponentFixture<CryptoInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent],
+      declarations: [CryptoInfoComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(CryptoInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

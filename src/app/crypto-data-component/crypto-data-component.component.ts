@@ -14,8 +14,8 @@ import { user } from '../shared/user';
   styleUrls: ['./crypto-data-component.component.css'],
 })
 export class CryptoDataComponentComponent implements OnInit, OnDestroy {
-  Title: string = 'Crypto';
-  errorMessage: string = '';
+  Title = 'Crypto';
+  errorMessage= '';
   sub: Subscription | undefined;
   displayedColumns: string[] = [
     'market_cap_rank',
@@ -24,13 +24,15 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     'current_price',
     'high_24h',
     'low_24h',
-    'total_volume'
+    'total_volume',
   ];
   dataSource!: MatTableDataSource<Icrypto>;
-  id:string ='';
+  id ='';
 
-  constructor(private cryptoDataService: CryptoService,
-    private router: Router) {}
+  constructor(
+    private cryptoDataService: CryptoService,
+    private router: Router
+  ) {}
 
   @ViewChild(MatSort)
   sort!: MatSort;
@@ -63,24 +65,21 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getCrypto():void
-  {
+  getCrypto(): void {
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(['/crypto/' + 'bitcoin']));
   }
 
-  addWatch(data:user)
-  {
+  addWatch(data: user) {
     //implement server side later
     //change button to remove
     //for now show name of added
     alert(data);
   }
 
-  removeWatch(data:user)
-  {
+  removeWatch(data: user) {
     //implement later
-
+    alert(data)
   }
 }

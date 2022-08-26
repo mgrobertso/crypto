@@ -11,15 +11,15 @@ import { CryptoService } from './shared/crypto.service';
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit, OnDestroy {
-  pageTitle: string = 'Detail';
+  pageTitle = 'Detail';
   cryptodata: Icrypto[] = [];
   chartData: number[] = [];
   data: ChartDataset[] = [];
-  chartLabel: any;
+  chartLabel: string[]=[];
   sub: Subscription | undefined;
-  legend: string = '';
-  nextpage: string = '';
-  backpage: string = '';
+  legend ='';
+  nextPage ='';
+  backPage= '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,9 +32,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.cryptoDataService.getCrypto().subscribe((stream) => {
       this.cryptodata = stream;
-      for (let i in this.cryptodata) {
+      for (const i in this.cryptodata) {
         if (this.cryptodata[i].id == this.id) {
-          this.chartLabel = this.cryptodata[i].name;
+          this.chartLabel.push(this.cryptodata[i].name);
           this.chartData.push(
             this.cryptodata[i].current_price,
             this.cryptodata[i].high_24h,
@@ -42,22 +42,22 @@ export class DetailComponent implements OnInit, OnDestroy {
           );
           this.legend = this.cryptodata[i].name;
           if (Number(i) <= 0) {
-            this.backpage = this.cryptodata[0].id;
-            this.nextpage = this.cryptodata[Number(i) + 1].id;
+            this.backPage = this.cryptodata[0].id;
+            this.nextPage = this.cryptodata[Number(i) + 1].id;
           } else if (Number(i) >= this.cryptodata.length - 1) {
-            this.nextpage = this.cryptodata[this.cryptodata.length - 1].id;
-            this.backpage = this.cryptodata[Number(i) - 1].id;
+            this.nextPage = this.cryptodata[this.cryptodata.length - 1].id;
+            this.backPage = this.cryptodata[Number(i) - 1].id;
           } else {
-            this.backpage = this.cryptodata[Number(i) - 1].id;
-            this.nextpage = this.cryptodata[Number(i) + 1].id;
+            this.backPage = this.cryptodata[Number(i) - 1].id;
+            this.nextPage = this.cryptodata[Number(i) + 1].id;
           }
-        } 
+        }
       }
 
       this.data = [
         {
           data: this.chartData,
-          label: this.chartLabel,
+          label: this.chartLabel.pop(),
           fill: 'origin',
           backgroundColor: 'rgba(173,216,230)',
           borderColor: 'rgba(0,0,0)',
@@ -84,7 +84,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   onBack() {
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['/crypto/' + this.backpage]));
+      .then(() => this.router.navigate(['/crypto/' + this.backPage]));
   }
 
   onHome() {
@@ -94,6 +94,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   onNext() {
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['/crypto/' + this.nextpage]));
+      .then(() => this.router.navigate(['/crypto/' + this.nextPage]));
   }
 }

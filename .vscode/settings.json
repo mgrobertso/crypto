@@ -1,5 +1,11 @@
 {
-    "cSpell.words": [
-        "canvasjs"
-    ]
+  "cSpell.words": [
+    "canvasjs"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript"
+  ]
 }
