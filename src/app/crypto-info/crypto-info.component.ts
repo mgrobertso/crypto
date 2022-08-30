@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { DetailComponent } from '../detail.component';
 import { CryptoService } from '../shared/crypto.service';
 import { cryptoInfo } from './cryptoinfo';
 
@@ -8,21 +9,21 @@ import { cryptoInfo } from './cryptoinfo';
   templateUrl: './crypto-info.component.html',
   styleUrls: ['./crypto-info.component.css'],
 })
-
-
-
-
-
-
 export class CryptoInfoComponent implements OnInit {
   data!: cryptoInfo;
   sub!: Subscription;
-  id = 'bitcoin';
-  constructor(private cryptoService: CryptoService) {}
+  id = this.idLog.id;
+
+  constructor(
+    private cryptoService: CryptoService,
+    private idLog: DetailComponent
+  ) {}
 
   ngOnInit(): void {
-    this.sub = this.cryptoService.getThisCrypto(this.id).subscribe((stream) => {
-      this.data = stream;
-    });
+    this.sub = this.cryptoService
+      .getThisCrypto(String(this.id))
+      .subscribe((stream) => {
+        this.data = stream;
+      });
   }
 }

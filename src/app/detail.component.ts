@@ -27,7 +27,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     private cryptoDataService: CryptoService
   ) {}
 
-  private id = this.route.snapshot.paramMap.get('id');
+   id = this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
     this.sub = this.cryptoDataService.getCrypto().subscribe((stream) => {

@@ -1,51 +1,50 @@
 <mat-card class="card">
-  <form [formGroup]="registerForm">
-    <mat-vertical-stepper formArrayName="controlArray" [linear]="true">
-      <mat-step formGroupName="0" [stepControl]="controlArray?.get([0])!">
-        <ng-template matStepLabel>Fill out your name</ng-template>
-        <mat-form-field>
-          <mat-label>First name</mat-label>
-          <input
-            matInput
-            class="form-control"
-            formControlName="firstNameCtrl"
-          />
-          <mat-error>This field is required</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Last name</mat-label>
-          <input matInput class="form-control" formControlName="lastNameCtrl" />
-          <mat-error>This field is required</mat-error>
-        </mat-form-field>
-        <div>
-          <button class="btn btn-primary" mat-button matStepperNext>
-            Next
-          </button>
-        </div>
+  <mat-vertical-stepper #stepper [linear]="true">
+      <mat-step [stepControl]="nameForm">
+        <form [formGroup]="nameForm">
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input
+              matInput
+              class="form-control"
+              formControlName="firstNameCtrl"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last name</mat-label>
+            <input matInput class="form-control" formControlName="lastNameCtrl" />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+          <div>
+            <button class="btn btn-primary" mat-button matStepperNext>
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [formGroup]="emailForm">
+        <form [formGroup]="emailForm">
+          <ng-template matStepLabel>Fill out your email</ng-template>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput class="form-control" formControlName="emailCtrl" type="email" required="true"/>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-button class="btn btn-primary" matStepperPrevious>
+              Back
+            </button>
+            <button mat-button class="btn btn-primary" matStepperNext>
+              Next
+            </button>
+          </div>
+        </form>
       </mat-step>
 
-      <mat-step formGroupName="1" [stepControl]="controlArray?.get([1])!">
-        <ng-template matStepLabel>Fill out your email</ng-template>
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input
-            type="email"
-            matInput
-            class="form-control"
-            formControlName="emailCtrl"
-          />
-          <mat-error>This field is required</mat-error>
-        </mat-form-field>
-        <div>
-          <button mat-button class="btn btn-primary" matStepperPrevious>
-            Back
-          </button>
-          <button mat-button class="btn btn-primary" matStepperNext>
-            Next
-          </button>
-        </div>
-      </mat-step>
-      <mat-step formGroupName="2" [stepControl]="controlArray?.get([2])!">
+      <mat-step [formGroup]="userNPassForm">
+        <form [formGroup]="userNPassForm">
         <ng-template matStepLabel>Fill out username and password</ng-template>
         <mat-form-field>
           <mat-label>Username</mat-label>
@@ -69,12 +68,11 @@
           <button
             mat-button
             class="btn btn-success"
-            (click)="onSubmit(registerForm.value.controlArray)"
-          >
+            (click)="signUP()">
             Submit
           </button>
         </div>
+      </form>
       </mat-step>
-    </mat-vertical-stepper>
-  </form>
+  </mat-vertical-stepper>
 </mat-card>

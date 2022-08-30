@@ -37,7 +37,7 @@ import { CryptoInfoComponent } from './crypto-info/crypto-info.component';
     FooterComponent,
     LoginComponent,
     SignupComponent,
-    CryptoInfoComponent,
+    CryptoInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -58,14 +58,14 @@ import { CryptoInfoComponent } from './crypto-info/crypto-info.component';
     MatProgressSpinnerModule,
     RouterModule,
     ReactiveFormsModule,
-    MatMenuModule,
+    MatMenuModule
   ],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { displayDefaultIndicatorType: false },
-    },
+      useValue: { displayDefaultIndicatorType: false }
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

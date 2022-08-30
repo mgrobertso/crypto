@@ -75,14 +75,14 @@
       <td mat-cell *matCellDef="let element">
         {{ element.total_volume | number }}
         <button
-          *ngIf="element.added == false || null"
+          *ngIf="element.added === false || null"
           (click)="addWatch(element.id)"
           class="btn btn-primary"
         >
           Add
         </button>
         <button
-          *ngIf="element.added == true"
+          *ngIf="element.added === true"
           (click)="addWatch(element.id)"
           class="btn btn-primary"
         >
