@@ -34,14 +34,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   onClickSubmit(data: user) {
     this.sub = this.http.get<any[]>('http://localhost:3000/posts').subscribe(
       (res) => {
-        const userData = res.flat();
-
-        const valid = userData.find((a) => {
-          return (
-            a.userNameCtrl == data.username && a.passwordCtrl == data.password
-          );
+        const valid = res.find((a) => {
+          console.log(a);
+          return a.first_name == data.username && a.password == data.password;
         });
-
         if (valid) {
           alert('login Success');
           this.auth.setState(true);

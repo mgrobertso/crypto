@@ -19,6 +19,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   Title = 'Crypto';
   errorMessage = '';
   sub: Subscription | undefined;
+  notInList = false;
   displayedColumns: string[] = [
     'market_cap_rank',
     'image',
@@ -70,13 +71,12 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
 
   addWatch(data: user) {
     if (this.auth.isLoggedIn$) {
+      alert(data + ' added to watch list ');
     }
-
-    console.log(data);
   }
 
   removeWatch(data: user) {
     //implement later
-    alert(data);
+    alert(data+"was removed");
   }
 }

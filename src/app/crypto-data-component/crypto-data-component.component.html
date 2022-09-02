@@ -78,7 +78,7 @@
         <button (click)="addWatch(element.id)" class="btn btn-primary">
           Add
         </button>
-        <button (click)="addWatch(element.id)" class="btn btn-danger">
+        <button *ngIf="notInList"(click)="removeWatch(element.id)" class="btn btn-danger">
           Remove
         </button>
       </td>
