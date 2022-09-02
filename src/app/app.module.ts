@@ -27,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CryptoInfoComponent } from './crypto-info/crypto-info.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { CryptoInfoComponent } from './crypto-info/crypto-info.component';
     FooterComponent,
     LoginComponent,
     SignupComponent,
-    CryptoInfoComponent
+    CryptoInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,14 +59,15 @@ import { CryptoInfoComponent } from './crypto-info/crypto-info.component';
     MatProgressSpinnerModule,
     RouterModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { displayDefaultIndicatorType: false }
-    }
+      useValue: { displayDefaultIndicatorType: false },
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -41,6 +41,19 @@
         "userNameCtrl": "xvvc",
         "passwordCtrl": "xv"
       }
+    ],
+    [
+      {
+        "emailCtrl": "getta"
+      },
+      {
+        "firstNameCtrl": "Mulugeta",
+        "lastNameCtrl": "Robertson"
+      },
+      {
+        "userNameCtrl": "my",
+        "passwordCtrl": "cxgxg"
+      }
     ]
   ]
 }

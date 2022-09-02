@@ -2,11 +2,13 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
-import { CryptoService } from '../shared/crypto.service';
+import { CryptoService } from '../shared/service/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { user } from '../shared/user';
+import { AuthService } from '../shared/service/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-crypto-data-component',
@@ -15,7 +17,7 @@ import { user } from '../shared/user';
 })
 export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   Title = 'Crypto';
-  errorMessage= '';
+  errorMessage = '';
   sub: Subscription | undefined;
   displayedColumns: string[] = [
     'market_cap_rank',
@@ -25,13 +27,16 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     'high_24h',
     'low_24h',
     'total_volume',
+    'favorite',
   ];
   dataSource!: MatTableDataSource<Icrypto>;
-  id ='';
+  id = '';
 
   constructor(
     private cryptoDataService: CryptoService,
-    private router: Router
+    private router: Router,
+    public auth: AuthService,
+    private http: HttpClient
   ) {}
 
   @ViewChild(MatSort)
@@ -52,14 +57,6 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     this.sub?.unsubscribe();
   }
 
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      console.log(`Sorted ${sortState.direction}ending`);
-    } else {
-      console.log('Sorting cleared');
-    }
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -72,14 +69,14 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   }
 
   addWatch(data: user) {
-    //implement server side later
-    //change button to remove
-    //for now show name of added
-    alert(data);
+    if (this.auth.isLoggedIn$) {
+    }
+
+    console.log(data);
   }
 
   removeWatch(data: user) {
     //implement later
-    alert(data)
+    alert(data);
   }
 }

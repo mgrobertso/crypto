@@ -48,8 +48,16 @@
       "rules": {
         "no-trailing-spaces": "error",
         "space-unary-ops": 2,
-        "no-empty-method": "error"
+        "no-multi-spaces": "error"
       }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/all-requiring-type-checking"
+      ]
     }
   ]
 }

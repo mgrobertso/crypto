@@ -24,7 +24,11 @@ export class SignupComponent implements OnInit {
   emailForm!: FormGroup;
   userNPassForm!: FormGroup;
 
-  constructor(private router: Router, private _formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private _formBuilder: FormBuilder,
+    private http: HttpClient
+  ) {
     this.nameForm = _formBuilder.group({
       firstNameCtrl: ['', Validators.required],
       lastNameCtrl: ['', Validators.required],
@@ -47,24 +51,33 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('form built');
-    this.emailForm.addValidators;
+    this.formData.email = this.emailForm.value;
+    this.formData.first_name = this.nameForm.controls[0].value;
   }
 
   signUP() {
-    const postData = this.nameForm.get(['firstNameCtrl'])
+    const postData = this.nameForm.get(['firstNameCtrl']);
     console.log(postData);
     //const data = this.nameForm.value+this.emailForm.value+this.userNPassForm.value;
     //console.log(data);
-    this.http.post("http://localhost:3000/posts", [this.emailForm.value, this.nameForm.value, this.userNPassForm.value]).subscribe(res => {
-      alert('user was created');
-      this.nameForm.reset();
-      this.emailForm.reset();
-      this.userNPassForm.reset();
-      this.router.navigate(['login']);
-    }, err => {
-      alert('there was an error');
-    })
-
+    this.http
+      .post('http://localhost:3000/posts', [
+        this.emailForm.value,
+        this.nameForm.value,
+        this.userNPassForm.value,
+      ])
+      .subscribe(
+        (res) => {
+          alert('user was created');
+          this.nameForm.reset();
+          this.emailForm.reset();
+          this.userNPassForm.reset();
+          this.router.navigate(['login']);
+        },
+        (err) => {
+          alert('there was an error');
+        }
+      );
 
     //implement server side validation and insert later, for routs back to home page
   }

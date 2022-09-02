@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './shared/service/auth.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
-  providers:[LoginComponent]
+  providers: [LoginComponent],
 })
-export class MenuComponent implements OnInit{
-  isLogged:boolean = false;
-  constructor(private log: LoginComponent) {}
+export class MenuComponent implements OnInit {
+  isLogged!: boolean;
 
-  ngOnInit(): void{
-    this.isLogged = this.log.isLogged;
-
+  constructor(public auth: AuthService) {
+    this.isLogged = Boolean(this.auth.getState());
   }
 
+  ngOnInit(): void {
+    this.isLogged = Boolean(this.auth.getState());
+  }
 }

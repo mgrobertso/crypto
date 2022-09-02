@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataset } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { Icrypto } from './crypto-data-component/crypto-data-component-datasource';
-import { CryptoService } from './shared/crypto.service';
+import { CryptoService } from './shared/service/crypto.service';
 
 @Component({
   selector: 'app-detail',
@@ -15,11 +15,11 @@ export class DetailComponent implements OnInit, OnDestroy {
   cryptodata: Icrypto[] = [];
   chartData: number[] = [];
   data: ChartDataset[] = [];
-  chartLabel: string[]=[];
+  chartLabel: string[] = [];
   sub: Subscription | undefined;
-  legend ='';
-  nextPage ='';
-  backPage= '';
+  legend = '';
+  nextPage = '';
+  backPage = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +27,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     private cryptoDataService: CryptoService
   ) {}
 
-   id = this.route.snapshot.paramMap.get('id');
+  id = this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
     this.sub = this.cryptoDataService.getCrypto().subscribe((stream) => {

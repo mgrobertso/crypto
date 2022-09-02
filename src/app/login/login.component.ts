@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../shared/service/auth.service';
 import { user } from '../shared/user';
 
 @Component({
@@ -10,8 +11,8 @@ import { user } from '../shared/user';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  @Output()
-  isLogged = false;
+  sub!: Subscription;
+
   loginData: user = {
     username: '',
     password: '',
@@ -20,8 +21,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     watch_list: [],
     email: '',
   };
-  sub!: Subscription;
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     console.log('login built');
@@ -40,10 +44,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         if (valid) {
           alert('login Success');
-          this.isLogged = true;
+          this.auth.setState(true);
+          localStorage.setItem('isLogged', 'true');
           this.router.navigate(['crypto']);
         } else {
-
+          localStorage.setItem('isLogged', 'false');
+          this.auth.setState(false);
           alert('user not found');
         }
       },
@@ -54,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     //implement validation and server side validation later.
     //routs homepage for now
   }
-  
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

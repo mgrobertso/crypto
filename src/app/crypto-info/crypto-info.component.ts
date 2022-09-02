@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DetailComponent } from '../detail.component';
-import { CryptoService } from '../shared/crypto.service';
+import { CryptoService } from '../shared/service/crypto.service';
 import { cryptoInfo } from './cryptoinfo';
 
 @Component({

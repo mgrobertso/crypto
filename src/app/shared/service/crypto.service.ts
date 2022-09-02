@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { Icrypto } from '../crypto-data-component/crypto-data-component-datasource';
+import { Icrypto } from '../../crypto-data-component/crypto-data-component-datasource';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { user } from './user';
-import { cryptoInfo } from '../crypto-info/cryptoinfo';
+import { user } from '../user';
+import { cryptoInfo } from '../../crypto-info/cryptoinfo';
 
 @Injectable({
   providedIn: 'root',

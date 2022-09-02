@@ -1,18 +1,30 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { user } from '../user';
+import { BehaviorSubject } from 'rxjs';
+import { LoginComponent } from 'src/app/login/login.component';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
+  public isLoggedIn$: BehaviorSubject<boolean>;
+  public watchList$!: BehaviorSubject<string[]>;
 
+  constructor() {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'false';
 
-  constructor(private http: HttpClient) {
+    this.isLoggedIn$ = new BehaviorSubject(isLoggedIn);
   }
 
-  getUser() {
-    this.http.get()
+  getState() {
+    return localStorage.getItem('loggedIn');
   }
 
+  setState(d: boolean) {
+    this.isLoggedIn$.next(d);
+  }
+
+  logout() {
+    this.isLoggedIn$.next(false);
+    localStorage.clear();
+  }
 }
