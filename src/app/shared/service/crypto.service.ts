@@ -10,7 +10,7 @@ import { cryptoInfo } from '../../crypto-info/cryptoinfo';
 })
 export class CryptoService {
   private cryptosUrl =
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false';
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc';
   private url = '/assets/cryptodata.json';
   private cryptoUrl = 'https://api.coingecko.com/api/v3/coins/';
   constructor(private http: HttpClient) {}

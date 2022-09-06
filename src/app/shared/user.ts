@@ -4,5 +4,5 @@ export interface user {
   email: string;
   first_name: string;
   last_name: string;
-  watch_list: [];
+  watch_list: string[];
 }

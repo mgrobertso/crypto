@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { CryptoService } from '../shared/service/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
@@ -19,6 +19,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   Title = 'Crypto';
   errorMessage = '';
   sub: Subscription | undefined;
+  userSub: Subscription | undefined;
   notInList = false;
   displayedColumns: string[] = [
     'market_cap_rank',
@@ -32,6 +33,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   ];
   dataSource!: MatTableDataSource<Icrypto>;
   id = '';
+  watchList: string[] = [];
 
   constructor(
     private cryptoDataService: CryptoService,
@@ -52,10 +54,16 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+
+    this.userSub = this.auth.userInfo$.subscribe((user) =>
+    {
+      this.watchList = user?.watch_list || [''];
+    })
   }
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
+    this.userSub?.unsubscribe();
   }
 
   applyFilter(event: Event) {
@@ -69,14 +77,23 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
       .then(() => this.router.navigate(['/crypto/' + 'bitcoin']));
   }
 
-  addWatch(data: user) {
+  addWatch(id: string) {
+    console.log(id);
     if (this.auth.isLoggedIn$) {
-      alert(data + ' added to watch list ');
+      const userValue = this.auth.userInfo$.value as user;
+      userValue?.watch_list.push(id);
+      this.auth.setUserState(userValue);
     }
   }
 
-  removeWatch(data: user) {
-    //implement later
-    alert(data+"was removed");
+  removeWatch(id: string) {
+    if (this.auth.isLoggedIn$) {
+      const userValue = this.auth.userInfo$.value as user;
+      const index = userValue?.watch_list.indexOf(id);
+      if (index) {
+        userValue?.watch_list.splice(index, 1);
+      }
+      this.auth.setUserState(userValue);
+    }
   }
 }

@@ -12,15 +12,6 @@ import { user } from '../shared/user';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   sub!: Subscription;
-
-  loginData: user = {
-    username: '',
-    password: '',
-    first_name: '',
-    last_name: '',
-    watch_list: [],
-    email: '',
-  };
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -34,13 +25,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   onClickSubmit(data: user) {
     this.sub = this.http.get<any[]>('http://localhost:3000/posts').subscribe(
       (res) => {
-        const valid = res.find((a) => {
+        const userData = res.flat();
+        const valid = userData.find((a:user) => {
           console.log(a);
-          return a.first_name == data.username && a.password == data.password;
+          return (a.first_name == data.username && a.password == data.password);
         });
         if (valid) {
           alert('login Success');
           this.auth.setState(true);
+          this.auth.userInfo$.next(valid);
           localStorage.setItem('isLogged', 'true');
           this.router.navigate(['crypto']);
         } else {
