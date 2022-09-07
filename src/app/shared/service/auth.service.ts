@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LoginComponent } from 'src/app/login/login.component';
 import { user } from '../user';
 
 @Injectable({

@@ -20,7 +20,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   errorMessage = '';
   sub: Subscription | undefined;
   userSub: Subscription | undefined;
-  notInList = false;
+
   displayedColumns: string[] = [
     'market_cap_rank',
     'image',
@@ -38,8 +38,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   constructor(
     private cryptoDataService: CryptoService,
     private router: Router,
-    public auth: AuthService,
-    private http: HttpClient
+    public auth: AuthService
   ) {}
 
   @ViewChild(MatSort)
@@ -57,7 +56,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
 
     this.userSub = this.auth.userInfo$.subscribe((user) =>
     {
-      this.watchList = user?.watch_list || [''];
+      this.watchList = user?.watch_list ||[];
     })
   }
 
@@ -82,8 +81,8 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     if (this.auth.isLoggedIn$) {
       const userValue = this.auth.userInfo$.value as user;
       userValue?.watch_list.push(id);
-      this.auth.setUserState(userValue);
     }
+    console.log(this.watchList)
   }
 
   removeWatch(id: string) {
@@ -93,7 +92,8 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
       if (index) {
         userValue?.watch_list.splice(index, 1);
       }
-      this.auth.setUserState(userValue);
+
     }
+    console.log(this.watchList)
   }
 }

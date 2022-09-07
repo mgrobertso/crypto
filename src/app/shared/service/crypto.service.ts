@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Icrypto } from '../../crypto-data-component/crypto-data-component-datasource';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { user } from '../user';
 import { cryptoInfo } from '../../crypto-info/cryptoinfo';
 
 @Injectable({
@@ -17,7 +16,6 @@ export class CryptoService {
 
   getCrypto(): Observable<Icrypto[]> {
     return this.http.get<Icrypto[]>(this.cryptosUrl).pipe(
-      tap((data) => console.log('All', JSON.stringify(data))),
       catchError(this.handleError)
     );
     //implement later
@@ -31,12 +29,12 @@ export class CryptoService {
     //implement later
   }
 
-  getuser(): Observable<user[]> {
+ /* getuser(): Observable<user[]> {
     return this.http.get<user[]>(this.url).pipe(
       tap((data) => console.log('All', JSON.stringify(data))),
       catchError(this.handleError)
     );
-  }
+  }*/
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
