@@ -1,5 +1,9 @@
 <mat-card class="card">
-  <div>
+  <app-crypto-info></app-crypto-info>
+</mat-card>
+
+
+<mat-card class="card">
     <div class="container">
       <button class="btn btn-primary" (click)="onBack()">
         <i class="fa fa-chevron-left"></i>Back
@@ -21,6 +25,4 @@
       [labels]="chartLabels"
       [options]="chartOptions"
     ></canvas>
-  </div>
-  <app-crypto-info></app-crypto-info>
 </mat-card>

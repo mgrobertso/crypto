@@ -89,7 +89,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     if (this.auth.isLoggedIn$) {
       const userValue = this.auth.userInfo$.value as user;
       const index = userValue?.watch_list.indexOf(id);
-      if (index) {
+      if (index>-1) {
         userValue?.watch_list.splice(index, 1);
       }
 
