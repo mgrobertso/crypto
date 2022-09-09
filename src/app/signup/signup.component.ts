@@ -1,9 +1,10 @@
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { user } from '../shared/user';
+import { FooterComponent } from '../footer.component';
+import { AuthService } from '../shared/service/auth.service';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,7 @@ import { user } from '../shared/user';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  formData: user = {
+  formData: User = {
     first_name: '',
     last_name: '',
     username: '',
@@ -28,7 +29,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
-    private http: HttpClient
+    private auth: AuthService
   ) {
     this.nameForm = _formBuilder.group({
       firstNameCtrl: ['', Validators.required],
@@ -53,25 +54,30 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     console.log('form built');
   }
+  getUserForm(): User {
+    this.formData.first_name = this.nameForm.get('firstNameCtrl')?.value;
+    this.formData.last_name = this.nameForm.get('lastNameCtrl')?.value;
+    this.formData.username = this.userNPassForm.get('userNameCtrl')?.value;
+    this.formData.password = this.userNPassForm.get('passwordCtrl')?.value;
+    this.formData.email = this.emailForm.get('emailCtrl')?.value;
+    console.log(this.formData);
+    return this.formData;
+  }
 
   signUP() {
-    const valid = false;
-    if (valid) {
+    let userData = this.getUserForm();
+    console.log(userData);
+    if (
+      this.nameForm.valid &&
+      this.emailForm.valid &&
+      this.userNPassForm.valid
+    ) {
+      this.auth.signUP(userData);
+      this.router.navigate(['login']);
+    } else {
+      alert('form data is invalid');
+      //will do better validation later
     }
-
-    this.http.post('http://localhost:3000/posts', this.formData).subscribe(
-      (res) => {
-        alert('user was created');
-        this.nameForm.reset();
-        this.emailForm.reset();
-        this.userNPassForm.reset();
-        this.router.navigate(['login']);
-      },
-      (err) => {
-        alert('there was an error');
-      }
-    );
-
     //implement server side validation and insert later, for routs back to home page
   }
 }

@@ -6,6 +6,7 @@
         <mat-form-field>
           <mat-label>First name</mat-label>
           <input
+          placeholder="First Name"
             matInput
             class="form-control"
             formControlName="firstNameCtrl"
@@ -14,11 +15,11 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Last name</mat-label>
-          <input matInput class="form-control" formControlName="lastNameCtrl" />
+          <input placeholder="Last Name" matInput class="form-control" formControlName="lastNameCtrl" />
           <mat-error>This field is required</mat-error>
         </mat-form-field>
         <div>
-          <button class="btn btn-primary" mat-button matStepperNext>
+          <button type="button" class="btn btn-primary" mat-button matStepperNext>
             Next
           </button>
         </div>
@@ -30,6 +31,7 @@
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input
+          placeholder="Email"
             matInput
             class="form-control"
             formControlName="emailCtrl"
@@ -39,10 +41,10 @@
           <mat-error>This field is required</mat-error>
         </mat-form-field>
         <div>
-          <button mat-button class="btn btn-primary" matStepperPrevious>
+          <button type="button" mat-button class="btn btn-primary" matStepperPrevious>
             Back
           </button>
-          <button mat-button class="btn btn-primary" matStepperNext>
+          <button type="button" mat-button class="btn btn-primary" matStepperNext>
             Next
           </button>
         </div>
@@ -54,12 +56,13 @@
         <ng-template matStepLabel>Fill out username and password</ng-template>
         <mat-form-field>
           <mat-label>Username</mat-label>
-          <input matInput class="form-control" formControlName="userNameCtrl" />
+          <input placeholder="User Name" matInput class="form-control" formControlName="userNameCtrl" />
           <mat-error>This field is required</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
           <input
+          placeholder="Password"
             matInput
             type="password"
             class="form-control"
@@ -68,10 +71,10 @@
           <mat-error>This field is required</mat-error>
         </mat-form-field>
         <div>
-          <button mat-button class="btn btn-primary" matStepperPrevious>
+          <button type="button" mat-button class="btn btn-primary" matStepperPrevious>
             Back
           </button>
-          <button mat-button class="btn btn-success" (click)="signUP()">
+          <button type="button" mat-button class="btn btn-success" (click)="signUP()">
             Submit
           </button>
         </div>

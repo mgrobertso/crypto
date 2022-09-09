@@ -6,7 +6,7 @@ import { CryptoService } from '../shared/service/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { user } from '../shared/user';
+import { User } from '../shared/user';
 import { AuthService } from '../shared/service/auth.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -77,17 +77,18 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   }
 
   addWatch(id: string) {
-    console.log(id);
-    if (this.auth.isLoggedIn$) {
-      const userValue = this.auth.userInfo$.value as user;
+    if (this.auth.isLoggedIn$.value) {
+      const userValue = this.auth.userInfo$.value as User;
       userValue?.watch_list.push(id);
+    } else {
+      this.router.navigate(['login']);
     }
     console.log(this.watchList)
   }
 
   removeWatch(id: string) {
     if (this.auth.isLoggedIn$) {
-      const userValue = this.auth.userInfo$.value as user;
+      const userValue = this.auth.userInfo$.value as User;
       const index = userValue?.watch_list.indexOf(id);
       if (index>-1) {
         userValue?.watch_list.splice(index, 1);

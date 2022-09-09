@@ -2,27 +2,28 @@
   <app-crypto-info></app-crypto-info>
 </mat-card>
 
-
 <mat-card class="card">
-    <div class="container">
-      <button class="btn btn-primary" (click)="onBack()">
-        <i class="fa fa-chevron-left"></i>Back
-      </button>
-      <button class="btn btn-primary" (click)="onHome()">Home</button>
-      <button class="btn btn-primary" (click)="onNext()">
-        Next
-        <i class="fa fa-chevron-right"></i>
-      </button>
-    </div>
-    <span style="text-align: center">
-      <h1>{{ legend }} High Low</h1></span
-    >
-    <canvas
-      baseChart
-      [type]="'line'"
-      [legend]="true"
-      [datasets]="data"
-      [labels]="chartLabels"
-      [options]="chartOptions"
-    ></canvas>
+  <div class="container-fluid">
+    <button class="btn btn-primary" (click)="onBack()">
+      <i class="fa fa-chevron-left"></i>Back
+    </button>
+    <button class="btn btn-primary" (click)="onHome()">Home</button>
+    <button class="btn btn-primary" (click)="onNext()">
+      Next
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+  <span style="text-align: center">
+    <h1>{{ legend }} High Low</h1></span
+  >
+  <canvas
+    baseChart
+    [type]="'line'"
+    [legend]="true"
+    [datasets]="data"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    width="200"
+    height="200"
+  ></canvas>
 </mat-card>
