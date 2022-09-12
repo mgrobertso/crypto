@@ -6,8 +6,7 @@ import {
   catchError,
   map,
   Observable,
-  pipe,
-  Subscription,
+  throwError,
 } from 'rxjs';
 import { User } from '../user';
 
@@ -15,82 +14,54 @@ import { User } from '../user';
   providedIn: 'root',
 })
 export class AuthService {
-  public isLoggedIn$: BehaviorSubject<boolean>;
-  public userInfo$: BehaviorSubject<User | null> =
+  private _isLoggedIn = new BehaviorSubject<boolean>(false);
+
+  public isLoggedIn$ = this._isLoggedIn.asObservable();
+
+  private _userInfo: BehaviorSubject<User | null> =
     new BehaviorSubject<User | null>(null);
-  sub!: Subscription;
-  regSub!: Subscription;
 
-  constructor(public http: HttpClient, private router: Router) {
-    const isLoggedIn = localStorage.getItem('loggedIn') === 'false';
-    this.isLoggedIn$ = new BehaviorSubject(isLoggedIn);
-  }
+  readonly userInfo$ = this._userInfo.asObservable();
 
-  getState(): boolean {
-    return Boolean(localStorage.getItem('loggedIn'));
-  }
+  constructor(public http: HttpClient, private router: Router) {}
 
   setState(d: boolean): void {
-    this.isLoggedIn$.next(d);
+    this._isLoggedIn.pipe(map((log) => d));
   }
 
   setUserState(d: User): void {
-    this.userInfo$.next(d);
+    this._userInfo.pipe(map((use) => d));
   }
 
-  login(data: User): Observable<boolean> {
-    this.sub = this.http
-      .get<User[]>('http://localhost:3000/users')
-      .pipe(
-        map((users) => {
-          const userData = users.flat();
-          return userData.find((user: User) => {
-            return (
-              user.username == data.username && user.password == data.password
-            );
-          });
-        }),
-        catchError(() => {
-          alert('error has occurred');
-          return [];
-        })
-      )
-      .subscribe((user?: User) => {
-        if (user) {
-          alert('login was success');
-          this.setState(true);
-          this.userInfo$.next(user);
-          this.isLoggedIn$.next(true);
-          localStorage.setItem('isLogged', 'true');
-        } else {
-          this.isLoggedIn$.next(false);
-          localStorage.setItem('isLogged', 'false');
-          this.setState(false);
-          alert('user not found');
-        }
-      });
-    return this.isLoggedIn$;
+  login(data: User) {
+     this.http.get<User[]>('http://localhost:3000/users').pipe(
+      map((users) => {
+        const userData = users.flat();
+        return userData.find((user: User) => {
+          return (
+            user.username == data.username && user.password == data.password
+          );
+        });
+      }),
+    );
   }
 
   logout(): void {
-    this.isLoggedIn$.next(false);
-    this.userInfo$.next(null);
+    this.setState(false);
+    this._userInfo.next(null);
     localStorage.clear();
   }
 
-  signUP(formData: User): boolean {
-    let userMade = false;
-    (this.regSub = this.http
-      .post('http://localhost:3000/users', formData)
-      .subscribe((user) => {
-        userMade = true;
-      })),
-      pipe(
+  signUP(formData: User): Observable<boolean> {
+    return this.http.post('http://localhost:3000/users', formData).pipe(
+      map(
+        (user) => {
+          return true;
+        },
         catchError((err) => {
-          userMade = false;
-          return err;
+          return throwError(() => new Error('User could not be created'));
         })
-      );
-    return userMade;
+      )
+    );
   }
 }

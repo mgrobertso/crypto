@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataset } from 'chart.js';
 import { Subscription } from 'rxjs';
-import { Icrypto } from './crypto-data-component/crypto-data-component-datasource';
-import { CryptoService } from './shared/service/crypto.service';
+import { Icrypto } from '../crypto-data-component/crypto-data-component-datasource';
+import { CryptoService } from '../shared/service/crypto.service';
 
 @Component({
   selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css'],
+  templateUrl: 'detail.component.html',
+  styleUrls: ['detail.component.css'],
 })
 export class DetailComponent implements OnInit, OnDestroy {
   pageTitle = 'Detail';

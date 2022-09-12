@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Subscription } from 'rxjs';
+import { Observable, skipUntil, Subscription } from 'rxjs';
 import { CryptoService } from '../shared/service/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { User } from '../shared/user';
 import { AuthService } from '../shared/service/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'jquery';
 
 @Component({
   selector: 'app-crypto-data-component',
@@ -20,6 +21,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   errorMessage = '';
   sub: Subscription | undefined;
   userSub: Subscription | undefined;
+  subLog: Subscription | undefined;
 
   displayedColumns: string[] = [
     'market_cap_rank',
@@ -77,17 +79,18 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   }
 
   addWatch(id: string) {
-    if (this.auth.isLoggedIn$.value) {
+    
+   /* if (this.auth.isLoggedIn$) {
       const userValue = this.auth.userInfo$.value as User;
       userValue?.watch_list.push(id);
     } else {
       this.router.navigate(['login']);
     }
-    console.log(this.watchList)
+    console.log(this.watchList)*/
   }
 
-  removeWatch(id: string) {
-    if (this.auth.isLoggedIn$) {
+  removeWatch(id: string) {/*
+   if (this.auth.isLoggedIn$) {
       const userValue = this.auth.userInfo$.value as User;
       const index = userValue?.watch_list.indexOf(id);
       if (index>-1) {
@@ -95,6 +98,6 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
       }
 
     }
-    console.log(this.watchList)
+    console.log(this.watchList)*/
   }
 }

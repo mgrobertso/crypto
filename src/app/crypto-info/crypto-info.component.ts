@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DetailComponent } from '../detail.component';
+import { DetailComponent } from '../detail/detail.component';
 import { CryptoService } from '../shared/service/crypto.service';
 import { cryptoInfo } from './cryptoinfo';
 

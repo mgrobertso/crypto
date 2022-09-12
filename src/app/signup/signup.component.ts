@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FooterComponent } from '../footer.component';
+import { FooterComponent } from '../footer/footer.component';
 import { AuthService } from '../shared/service/auth.service';
 import { User } from '../shared/user';
 
