@@ -6,9 +6,8 @@ import {
   catchError,
   map,
   Observable,
-  throwError,
 } from 'rxjs';
-import { User } from '../user';
+import { LoginRequest, SignupRequest, User } from '../user';
 
 @Injectable({
   providedIn: 'root',
@@ -26,23 +25,30 @@ export class AuthService {
   constructor(public http: HttpClient, private router: Router) {}
 
   setState(d: boolean): void {
-    this._isLoggedIn.pipe(map((log) => d));
+    this._isLoggedIn.next(d);
   }
 
   setUserState(d: User): void {
-    this._userInfo.pipe(map((use) => d));
+    this._userInfo.next(d);
   }
 
-  login(data: User) {
-     this.http.get<User[]>('http://localhost:3000/users').pipe(
-      map((users) => {
-        const userData = users.flat();
-        return userData.find((user: User) => {
-          return (
-            user.username == data.username && user.password == data.password
-          );
-        });
-      }),
+  /**
+   * login function
+   * @param data - LoginRequest param for login
+   * @returns Observable<User>
+   */
+  login(data: LoginRequest): Observable<User> {
+    return this.http.post<User>('http://localhost:3000/login', data).pipe(
+      map(
+        (user) => {
+          this.setUserState(user);
+          return user;
+        },
+        catchError((err) => {
+          // catch error handling
+          throw err;
+        })
+      )
     );
   }
 
@@ -52,16 +58,20 @@ export class AuthService {
     localStorage.clear();
   }
 
-  signUP(formData: User): Observable<boolean> {
-    return this.http.post('http://localhost:3000/users', formData).pipe(
-      map(
-        (user) => {
-          return true;
-        },
-        catchError((err) => {
-          return throwError(() => new Error('User could not be created'));
-        })
-      )
+  /**
+   * login function
+   * @param formData - SignupRequest param for signup
+   * @returns Observable<User>
+   */
+  signup(formData: SignupRequest): Observable<User> {
+    return this.http.post<User>('http://localhost:3000/signup', formData).pipe(
+      map((user) => {
+        return user;
+      }),
+      catchError((err) => {
+        // catch error handling
+        throw err;
+      })
     );
   }
 }

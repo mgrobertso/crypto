@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { AuthService } from '../shared/service/auth.service';
-import { User } from '../shared/user';
+import { LoginRequest } from '../shared/user';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +13,28 @@ import { User } from '../shared/user';
 export class LoginComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   subisLogged!: Subscription;
-  errorMessage ='';
+  errorMessage = '';
 
   constructor(private router: Router, private auth: AuthService) {
-    this.subisLogged = this.auth.isLoggedIn$.subscribe(
-    )
+    this.subisLogged = this.auth.isLoggedIn$.subscribe();
   }
 
   ngOnInit(): void {
     console.log('login built');
   }
 
-  onClickSubmit(data: User) {
+  onClickSubmit(data: LoginRequest) {
+   this.sub= this.auth
+      .login(data)
+      .pipe(take(1))
+      .subscribe((user) => {
+        // if no error then navigate to crypto
+        if (!user.error) {
+          this.router.navigate(['crypto']);
+        } else {
+          // error handling here
+        }
+      });
   }
 
   ngOnDestroy(): void {

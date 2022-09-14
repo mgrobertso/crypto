@@ -6,9 +6,7 @@ import { CryptoService } from '../shared/service/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { User } from '../shared/user';
 import { AuthService } from '../shared/service/auth.service';
-import { HttpClient } from '@angular/common/http';
 import { map } from 'jquery';
 
 @Component({
@@ -56,10 +54,9 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
       this.dataSource.paginator = this.paginator;
     });
 
-    this.userSub = this.auth.userInfo$.subscribe((user) =>
-    {
-      this.watchList = user?.watch_list ||[];
-    })
+    this.userSub = this.auth.userInfo$.subscribe((user) => {
+      this.watchList = user?.watch_list || [];
+    });
   }
 
   ngOnDestroy(): void {
@@ -79,25 +76,18 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   }
 
   addWatch(id: string) {
-    
-   /* if (this.auth.isLoggedIn$) {
-      const userValue = this.auth.userInfo$.value as User;
-      userValue?.watch_list.push(id);
-    } else {
-      this.router.navigate(['login']);
+    if (this.auth.isLoggedIn$) {
+      if (this.watchList.indexOf(id) === -1) {
+        this.watchList.push(id);
+      }
+      // set User state in auth service
     }
-    console.log(this.watchList)*/
   }
 
-  removeWatch(id: string) {/*
-   if (this.auth.isLoggedIn$) {
-      const userValue = this.auth.userInfo$.value as User;
-      const index = userValue?.watch_list.indexOf(id);
-      if (index>-1) {
-        userValue?.watch_list.splice(index, 1);
+  removeWatch(id: string) {
+      const index = this.watchList.indexOf(id);
+      if (index > -1) {
+        this.watchList.splice(index, 1);
       }
-
-    }
-    console.log(this.watchList)*/
   }
 }

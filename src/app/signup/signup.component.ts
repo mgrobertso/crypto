@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { FooterComponent } from '../footer/footer.component';
 import { AuthService } from '../shared/service/auth.service';
-import { User } from '../shared/user';
+import { SignupRequest, User } from '../shared/user';
 
 @Component({
   selector: 'app-signup',
@@ -12,13 +13,12 @@ import { User } from '../shared/user';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  formData: User = {
+  formData: SignupRequest = {
     first_name: '',
     last_name: '',
     username: '',
     email: '',
     password: '',
-    watch_list: [],
   };
 
   registerForm!: FormGroup;
@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     console.log('form built');
   }
-  getUserForm(): User {
+  getUserForm(): SignupRequest {
     this.formData.first_name = this.nameForm.get('firstNameCtrl')?.value;
     this.formData.last_name = this.nameForm.get('lastNameCtrl')?.value;
     this.formData.username = this.userNPassForm.get('userNameCtrl')?.value;
@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
     return this.formData;
   }
 
-  signUP() {
+  signup() {
     let userData = this.getUserForm();
     console.log(userData);
     if (
@@ -72,8 +72,16 @@ export class SignupComponent implements OnInit {
       this.emailForm.valid &&
       this.userNPassForm.valid
     ) {
-      this.auth.signUP(userData);
-      this.router.navigate(['login']);
+      this.auth
+        .signup(userData)
+        .pipe(take(1))
+        .subscribe((user) => {
+          if (!user.error) {
+            this.router.navigate(['login']);
+          } else {
+            // signup error handling here
+          }
+        });
     } else {
       alert('form data is invalid');
       //will do better validation later

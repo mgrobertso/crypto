@@ -24,13 +24,30 @@
       "id": 4
     },
     {
-      "first_name": "ASDds",
-      "last_name": "http://localhost:4200/",
-      "username": "asd",
-      "email": "sfdfads@dsfda.com",
-      "password": "asd",
+      "first_name": "getta",
+      "last_name": "my",
+      "username": "gg",
+      "email": "asda@sdsa.com",
+      "password": "gg",
       "watch_list": [],
       "id": 5
+    }
+  ],
+  "signup": [
+    {
+      "first_name": "Robertson",
+      "last_name": "getta",
+      "username": "gg",
+      "email": "my@email.com",
+      "password": "gg",
+      "id": 1
+    }
+  ],
+  "login": [
+    {
+      "username": "gg",
+      "password": "gg",
+      "id": 1
     }
   ]
 }
