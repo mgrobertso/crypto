@@ -3,11 +3,6 @@ table {
   border: solid 1px black;
 }
 
-.mat-row:hover {
-  background-color: aliceblue;
-  font-weight: bold;
-}
-
 .mat-column-market_cap_rank {
   width: 32px;
   border-right: 1px solid currentColor;

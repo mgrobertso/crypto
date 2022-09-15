@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Observable, skipUntil, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CryptoService } from '../shared/service/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
@@ -76,7 +76,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   }
 
   addWatch(id: string) {
-    if (this.auth.isLoggedIn$) {
+    if (this.auth.isLoggedIn$.subscribe()) {
       if (this.watchList.indexOf(id) === -1) {
         this.watchList.push(id);
       }
@@ -88,6 +88,7 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
       const index = this.watchList.indexOf(id);
       if (index > -1) {
         this.watchList.splice(index, 1);
-      }
+    }
+    console.log(this.watchList)
   }
 }
