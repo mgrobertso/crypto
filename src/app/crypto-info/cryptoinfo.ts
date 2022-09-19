@@ -14,10 +14,22 @@ export interface cryptoInfo {
     official_forum_url: [];
     chat_url: [];
     announcement_url: [];
-  },
+  };
   image: {
-        thumb: string,
-        small: string,
-        large: string
+    thumb: string;
+    small: string;
+    large: string;
+  };
+  market_cap_rank: number;
+  market_data: {
+    current_price: {
+      usd: number;
+    };
+    high_24h: {
+      usd: number;
+    };
+    low_24h: {
+      usd: number;
+    };
   };
 }

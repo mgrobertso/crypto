@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataset } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { Icrypto } from '../crypto-data-component/crypto-data-component-datasource';
+import { cryptoInfo } from '../crypto-info/cryptoinfo';
 import { CryptoService } from '../shared/service/crypto.service';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-detail',
@@ -11,12 +13,15 @@ import { CryptoService } from '../shared/service/crypto.service';
   styleUrls: ['detail.component.css'],
 })
 export class DetailComponent implements OnInit, OnDestroy {
+  faDollarSign = faDollarSign;
   pageTitle = 'Detail';
   cryptodata: Icrypto[] = [];
   chartData: number[] = [];
   data: ChartDataset[] = [];
   chartLabel: string[] = [];
   sub: Subscription | undefined;
+  sunCry!: Subscription;
+  crypto!: cryptoInfo;
   legend = '';
   nextPage = '';
   backPage = '';
@@ -30,6 +35,12 @@ export class DetailComponent implements OnInit, OnDestroy {
   id = this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
+    this.sub = this.cryptoDataService
+      .getThisCrypto(String(this.id))
+      .subscribe((stream) => {
+        this.crypto = stream;
+      });
+
     this.sub = this.cryptoDataService.getCrypto().subscribe((stream) => {
       this.cryptodata = stream;
       for (const i in this.cryptodata) {
@@ -78,7 +89,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   };
 
   ngOnDestroy() {
-    this.sub?.unsubscribe;
+    this.sub?.unsubscribe();
+    this.sunCry?.unsubscribe();
   }
 
   onBack() {

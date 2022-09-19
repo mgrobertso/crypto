@@ -3,6 +3,8 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Icrypto } from '../../crypto-data-component/crypto-data-component-datasource';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { cryptoInfo } from '../../crypto-info/cryptoinfo';
+import { Holding } from 'src/app/company-holding/company-holding';
+import { Search } from '../../search-page/search';
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +12,14 @@ import { cryptoInfo } from '../../crypto-info/cryptoinfo';
 export class CryptoService {
   private cryptosUrl =
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc';
-  private url = '/assets/cryptodata.json';
+  private url = 'https://api.coingecko.com/api/v3/companies/public_treasury/';
   private cryptoUrl = 'https://api.coingecko.com/api/v3/coins/';
   constructor(private http: HttpClient) {}
 
   getCrypto(): Observable<Icrypto[]> {
-    return this.http.get<Icrypto[]>(this.cryptosUrl).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<Icrypto[]>(this.cryptosUrl)
+      .pipe(catchError(this.handleError));
     //implement later
   }
 
@@ -28,8 +30,24 @@ export class CryptoService {
     );
     //implement later
   }
+  getCompanyHolding(id: string): Observable<Holding> {
+    return this.http.get<Holding>(this.url + id).pipe(
+      tap((data) => console.log('All', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+    //implement later
+  }
 
- /* getuser(): Observable<user[]> {
+  searchCrypto(name: string): Observable<Search> {
+    return this.http
+      .get<Search>('https://api.coingecko.com/api/v3/search?query='+name)
+      .pipe(
+        tap((data) => console.log('All', JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
+  /* getuser(): Observable<user[]> {
     return this.http.get<user[]>(this.url).pipe(
       tap((data) => console.log('All', JSON.stringify(data))),
       catchError(this.handleError)

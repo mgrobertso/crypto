@@ -1,29 +1,28 @@
-<div class="chart">
-  <div class="card">
-    <div class="container-fluid">
-      <button class="btn btn-primary" (click)="onBack()">
-        <i class="fa fa-chevron-left"></i>Back
-      </button>
-      <button class="btn btn-primary" (click)="onHome()">Home</button>
-      <button class="btn btn-primary" (click)="onNext()">
-        Next
-        <i class="fa fa-chevron-right"></i>
-      </button>
+<mat-card class="container-fluid">
+  <div class="container-fluid">
+    <mat-toolbar class="container-fluid statbar">
+      <span>Rank: {{crypto.market_cap_rank}}</span>
+      <span>Price: <fa-icon [icon]="faDollarSign"></fa-icon>{{crypto.market_data.current_price.usd}}</span>
+      <span>24h High: <fa-icon [icon]="faDollarSign"></fa-icon>{{crypto.market_data.high_24h.usd}}</span>
+      <span>24h Low: <fa-icon [icon]="faDollarSign"></fa-icon>{{crypto.market_data.low_24h.usd}}</span>
+    </mat-toolbar>
+
+    <div class="chart">
+      <span style="text-align: center">
+        <h1>{{ legend }} High Low</h1></span
+      >
+      <canvas
+        baseChart
+        [type]="'line'"
+        [legend]="true"
+        [datasets]="data"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+      ></canvas>
     </div>
-    <span style="text-align: center">
-      <h1>{{ legend }} High Low</h1></span
-    >
-    <canvas
-      baseChart
-      [type]="'line'"
-      [legend]="true"
-      [datasets]="data"
-      [labels]="chartLabels"
-      [options]="chartOptions"
-      width="900px"
-    ></canvas>
+    <div class="container detail">
+      <app-crypto-info> </app-crypto-info>
     </div>
-</div>
-<div class="detail">
-  <app-crypto-info></app-crypto-info>
-</div>
+    <app-company-holding></app-company-holding>
+  </div>
+</mat-card>

@@ -7,8 +7,6 @@ import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/service/auth.service';
-import { map } from 'jquery';
-
 @Component({
   selector: 'app-crypto-data-component',
   templateUrl: './crypto-data-component.component.html',
@@ -79,6 +77,10 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     if (this.auth.isLoggedIn$.subscribe()) {
       if (this.watchList.indexOf(id) === -1) {
         this.watchList.push(id);
+        this.auth.addWatch(id);
+        console.log(this.auth.userInfo$.subscribe(res => {
+          console.log(res?.watch_list)
+        }))
       }
       // set User state in auth service
     }

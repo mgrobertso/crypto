@@ -2,12 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { LoginRequest, SignupRequest, User } from '../user';
 
 @Injectable({
@@ -32,15 +27,6 @@ export class AuthService {
   setUserState(d: User): void {
     this._userInfo.next(d);
   }
-  checkAccount(data:User): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:3000/users').pipe(
-      map((userList: User[]) => {
-        return userList.filter(
-          (user) => user.email == data.email && user.username ==data.username
-        );
-      })
-    );
-  }
 
   /**
    * login function
@@ -60,6 +46,15 @@ export class AuthService {
           throw err;
         })
       )
+    );
+  }
+
+  addWatch(id: string): void {
+    this._userInfo.pipe(
+      map((watch) => {
+        watch?.watch_list.push(id);
+        console.log(watch?.watch_list);
+      })
     );
   }
 

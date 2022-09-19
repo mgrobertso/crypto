@@ -28,7 +28,12 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CryptoInfoComponent } from './crypto-info/crypto-info.component';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CompanyHoldingComponent } from './company-holding/company-holding.component';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     LoginComponent,
     SignupComponent,
     CryptoInfoComponent,
+    CompanyHoldingComponent,
+    SearchPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +69,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     ReactiveFormsModule,
     MatMenuModule,
     MatGridListModule,
+    MatDividerModule,
+    MatListModule,
+    FontAwesomeModule,
     MarkdownModule.forRoot(),
     StoreModule.forRoot({}, {}),
   ],

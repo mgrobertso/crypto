@@ -10,6 +10,10 @@ table {
   text-align: center;
 }
 
+.mat-card{
+  padding: auto;
+}
+
 .mat-header-cell,
 .mat-paginator {
   font-size: large;
@@ -26,8 +30,15 @@ table {
 }
 
 .mat-form-field {
-  width: 100%;
+  padding: 1px;
+    width: 100%;
 }
 a:link {
   text-decoration: none;
+}
+
+p
+{
+  border: 1px solid ;
+  background-color: aliceblue;
 }
