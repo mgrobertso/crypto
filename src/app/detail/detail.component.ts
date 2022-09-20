@@ -20,7 +20,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   data: ChartDataset[] = [];
   chartLabel: string[] = [];
   sub: Subscription | undefined;
-  sunCry!: Subscription;
   crypto!: cryptoInfo;
   legend = '';
   nextPage = '';
@@ -90,7 +89,6 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
-    this.sunCry?.unsubscribe();
   }
 
   onBack() {

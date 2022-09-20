@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { CryptoService } from '../shared/service/crypto.service';
 import { Icrypto } from './crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,7 +17,6 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   errorMessage = '';
   sub: Subscription | undefined;
   userSub: Subscription | undefined;
-  subLog: Subscription | undefined;
 
   displayedColumns: string[] = [
     'market_cap_rank',
@@ -74,23 +73,28 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   }
 
   addWatch(id: string) {
-    if (this.auth.isLoggedIn$.subscribe()) {
-      if (this.watchList.indexOf(id) === -1) {
-        this.watchList.push(id);
-        this.auth.addWatch(id);
-        console.log(this.auth.userInfo$.subscribe(res => {
-          console.log(res?.watch_list)
-        }))
+    this.auth.isLoggedIn$.pipe(take(1)
+    ).subscribe((loggedIn) => {
+      // write code here against loggedIn
+      if (loggedIn) {
+        if (this.watchList.indexOf(id) === -1) {
+          this.watchList.push(id);
+          this.auth.addWatch(id);
+          console.log(
+            this.auth.userInfo$.subscribe((res) => {
+              console.log(res?.watch_list);
+            })
+          );
+        }
       }
-      // set User state in auth service
-    }
+    });
   }
 
   removeWatch(id: string) {
-      const index = this.watchList.indexOf(id);
-      if (index > -1) {
-        this.watchList.splice(index, 1);
+    const index = this.watchList.indexOf(id);
+    if (index > -1) {
+      this.watchList.splice(index, 1);
     }
-    console.log(this.watchList)
+    console.log(this.watchList);
   }
 }

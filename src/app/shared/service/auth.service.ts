@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
-import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap } from 'rxjs';
 import { LoginRequest, SignupRequest, User } from '../user';
 
 @Injectable({
@@ -51,7 +50,7 @@ export class AuthService {
 
   addWatch(id: string): void {
     this._userInfo.pipe(
-      map((watch) => {
+      tap((watch) => {
         watch?.watch_list.push(id);
         console.log(watch?.watch_list);
       })
@@ -71,9 +70,6 @@ export class AuthService {
    */
   signup(formData: SignupRequest): Observable<User> {
     return this.http.post<User>('http://localhost:3000/signup', formData).pipe(
-      map((user) => {
-        return user;
-      }),
       catchError((err) => {
         // catch error handling
         throw err;

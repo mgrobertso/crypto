@@ -39,5 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.subisLogged.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CryptoService } from '../shared/service/crypto.service';
@@ -9,7 +9,7 @@ import { Holding } from './company-holding';
   templateUrl: './company-holding.component.html',
   styleUrls: ['./company-holding.component.css'],
 })
-export class CompanyHoldingComponent implements OnInit {
+export class CompanyHoldingComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   crypto!: Holding;
 
@@ -23,5 +23,9 @@ export class CompanyHoldingComponent implements OnInit {
       .subscribe((stream) => {
         this.crypto = stream;
       });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }
