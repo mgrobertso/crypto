@@ -1,0 +1,103 @@
+{
+  "users": [
+    {
+      "first_name": "getta",
+      "username": "getta",
+      "email": "sdf",
+      "password": "getta",
+      "watch_list": [
+        "bitcoin"
+      ],
+      "id": 2
+    },
+    {
+      "first_name": "Mulugeta",
+      "last_name": "Robertson",
+      "username": "name",
+      "email": "getta@getta.com",
+      "password": "password",
+      "watch_list": [
+        "bitcoin",
+        "ripple",
+        "solana"
+      ],
+      "id": 4
+    },
+    {
+      "first_name": "getta",
+      "last_name": "my",
+      "username": "gg",
+      "email": "asda@sdsa.com",
+      "password": "gg",
+      "watch_list": [],
+      "id": 5
+    }
+  ],
+  "signup": [
+    {
+      "first_name": "Robertson",
+      "last_name": "getta",
+      "username": "gg",
+      "email": "my@email.com",
+      "password": "gg",
+      "id": 1
+    },
+    {
+      "first_name": "Mulugeta",
+      "last_name": "Robertson",
+      "username": "gg",
+      "email": "getta@dsfdf.com",
+      "password": "gg",
+      "id": 2
+    }
+  ],
+  "login": [
+    {
+      "username": "gg",
+      "password": "gg",
+      "id": 1
+    },
+    {
+      "username": "getta",
+      "password": "getta",
+      "chRemember": true,
+      "id": 2
+    },
+    {
+      "username": "gg",
+      "password": "gg",
+      "chRemember": "",
+      "id": 3
+    },
+    {
+      "username": "gg",
+      "password": "gg",
+      "chRemember": "",
+      "id": 4
+    },
+    {
+      "username": "gg",
+      "password": "gg",
+      "chRemember": "",
+      "id": 5
+    },
+    {
+      "username": "gg",
+      "password": "gg",
+      "chRemember": "",
+      "id": 6
+    },
+    {
+      "username": "gg",
+      "password": "gg",
+      "chRemember": "",
+      "id": 7
+    },
+    {
+      "username": "gg",
+      "password": "gg",
+      "chRemember": "",
+      "id": 8
+    }
+  ]
+}

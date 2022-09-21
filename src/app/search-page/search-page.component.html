@@ -1,0 +1,15 @@
+  <input type="text" placeholder="Search.."   name="search" [(ngModel)]="search">
+  <button type="button" (click)="searchCrypto(search)"><i class="fa fa-search"></i></button>
+
+
+  <div *ngIf="searchData">
+    Searching Data....
+    <div *ngFor="let a of searchData.coins">
+      <h1>{{a.name}}</h1>
+      <h3>{{a.symbol}}</h3>
+      <img src="{{a.large}}" width="250px">
+      <p>{{a.market_cap_rank}}</p>
+      <div *ngFor="let b of searchData.nfts">
+      </div>
+    </div>
+  </div>

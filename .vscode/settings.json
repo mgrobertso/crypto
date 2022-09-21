@@ -1,5 +1,16 @@
 {
-    "cSpell.words": [
-        "canvasjs"
-    ]
+  "cSpell.words": [
+    "canvasjs"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.code.ficer.eslint": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": false,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
 }

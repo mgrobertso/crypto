@@ -1,19 +1,77 @@
-<mat-card class="card">
-      <div class="form-group">
+<div class="card mb-3 text-center text-lg-start">
+  <div class="row g-0 d-flex align-items-center">
+    <div class="col-lg-4 d-none d-lg-flex">
+      <img
+        src="/assets/login4.jpg"
+        alt="login image"
+        class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"
+      />
+    </div>
+    <div class="col-lg-8">
+      <div class="card-body py-5 px-md-5">
         <form #loginData="ngForm" (ngSubmit)="onClickSubmit(loginData.value)">
-            <mat-form-field appearance="fill">
-              <mat-label>User Name</mat-label>
-              <input id="name"  type="text" name="name" matInput class="form-control" ngModel [required]="true">
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Password</mat-label>
-              <input type="password" name="password"class="form-control" matInput ngModel [required]="true">
-            </mat-form-field>
-          <div>
-          <button type="submit" class="btn btn-success">Login</button>
-          <button routerLink="/register"class="btn btn-primary">Register</button>
+          <!-- UserName input -->
+          <div class="form-outline mb-4">
+            <input
+              id="name"
+              type="text"
+              name="username"
+              placeholder="username"
+              class="form-control"
+              ngModel
+              [required]="true"
+              id="username"
+            />
+            <label class="form-label" for="username">UserName</label>
           </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input
+              type="password"
+              id="password"
+              aria-label="Password"
+              name="password"
+              placeholder="password"
+              ngModel
+              [required]="true"
+              class="form-control"
+            />
+            <label class="form-label" for="password">Password</label>
+          </div>
+
+          <!-- 2 column grid layout for inline styling -->
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+              <!-- Checkbox -->
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="remember"
+                  name="chRemember"
+                  checked
+                  ngModel
+                />
+                <label class="form-check-label" for="remember">
+                  Remember me
+                </label>
+              </div>
+            </div>
+
+            <div class="col">
+              <!-- Simple link -->
+              <a href="#!">Forgot password?</a>
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">
+            Sign in
+          </button>
         </form>
       </div>
-    </mat-card>
-
+    </div>
+  </div>
+</div>

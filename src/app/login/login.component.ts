@@ -1,47 +1,44 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
-import { data } from 'jquery';
-import { Subscription } from 'rxjs';
-import { CryptoService } from '../shared/crypto.service';
-import { user} from '../shared/user'
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { Subscription, take } from 'rxjs';
+import { AuthService } from '../shared/service/auth.service';
+import { LoginRequest } from '../shared/user';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit,OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
+  sub!: Subscription;
+  subisLogged!: Subscription;
+  errorMessage = '';
 
-  @Output()
-  isLogged:boolean=false;
-  loginData:user[]=[];
-  sub!:Subscription;
-
-  onClickSubmit(data:user){
-    console.log("username:" +data.password,"password:"+data.password);
-    if(data.username===this.loginData[0].username && data.password===this.loginData[0].password)
-    {
-      alert('user has logged in')
-    }
-    else{
-      alert('failed  to log in')
-    }
-
-    //implement validation and server side validation later.
-    //routs homepage for now
+  constructor(private router: Router, private auth: AuthService) {
+    this.subisLogged = this.auth.isLoggedIn$.subscribe();
   }
-
-  constructor(private crypto:CryptoService) { }
 
   ngOnInit(): void {
-    this.sub= this.crypto.getuser().subscribe((stream)=>{
-      this.loginData[0].username = stream[0].username;
-      this.loginData[0].password = stream[0].password;
-    });
-
+    console.log('login built');
   }
-  ngOnDestroy():void{
+
+  onClickSubmit(data: LoginRequest) {
+   this.sub= this.auth
+      .login(data)
+      .pipe(take(1))
+      .subscribe((user) => {
+        // if no error then navigate to crypto
+        if (!user.error) {
+          this.router.navigate(['crypto']);
+        } else {
+          // error handling here
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.subisLogged.unsubscribe();
   }
-
 }
