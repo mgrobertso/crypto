@@ -19,25 +19,18 @@
   </button>
   <mat-menu #menu="matMenu">
     <button
-      *ngIf="isLogged === false"
+      *ngIf="auth.isUserAuthenticated()===false"
       routerLink="login"
       mat-menu-item
     >
       Login
     </button>
     <button
-      *ngIf="isLogged"
+      *ngIf="auth.isUserAuthenticated()"
       (click)="auth.logout()"
       mat-menu-item
     >
       Logout
-    </button>
-    <button
-      *ngIf="isLogged === false"
-      routerLink="register"
-      mat-menu-item
-    >
-      Register
     </button>
   </mat-menu>
 </mat-toolbar>

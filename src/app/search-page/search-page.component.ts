@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Search } from './search';
+import { Search } from '../shared/model/search';
 import { CryptoService } from '../shared/service/crypto.service';
 
 @Component({

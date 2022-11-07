@@ -9,20 +9,14 @@ import { AuthService } from '../shared/service/auth.service';
   styleUrls: ['menu.component.css'],
   providers: [LoginComponent],
 })
-export class MenuComponent implements OnInit,OnDestroy {
+export class MenuComponent implements OnInit {
   isLogged: boolean = false;
   sub!: Subscription;
 
-  constructor(public auth: AuthService) {
-  }
+  constructor(public auth: AuthService) {}
 
   ngOnInit(): void {
-     this.sub = this.auth.isLoggedIn$.subscribe((log) => this.isLogged=log);
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-
+    this.isLogged = this.auth.isUserAuthenticated();
   }
 
 }

@@ -1,15 +1,21 @@
 <mat-card class="container-fluid">
-  <div class="container-fluid">
-    <mat-toolbar class="container-fluid statbar">
-      <span>Rank: {{crypto.market_cap_rank}}</span>
-      <span>Price: <fa-icon [icon]="faDollarSign"></fa-icon>{{crypto.market_data.current_price.usd}}</span>
-      <span>24h High: <fa-icon [icon]="faDollarSign"></fa-icon>{{crypto.market_data.high_24h.usd}}</span>
-      <span>24h Low: <fa-icon [icon]="faDollarSign"></fa-icon>{{crypto.market_data.low_24h.usd}}</span>
+  <div class="container">
+
+    <mat-toolbar class="container-fluid statbar" >
+      <span>Rank: {{chartCrypto.market_cap_rank}}</span>
+      <span>Price:{{chartCrypto.current_price|currency}}</span>
+      <span>24h High:{{chartCrypto.high_24h|currency}}</span>
+      <span>24h Low:{{chartCrypto.low_24h|currency}}</span>
     </mat-toolbar>
+  </div>
 
     <div class="chart">
+ <span> <button class="btn btn-danger"  (click)="onHome()" >Home</button> </span>
+
+ <span> <button class="btn btn-danger" (click)="onBack()" >Back</button> </span>
+  <span> <button class="btn btn-danger" (click)="onNext()" >Next</button> </span>
       <span style="text-align: center">
-        <h1>{{ legend }} High Low</h1></span
+        <h1>{{ legend }} High Low Chart</h1></span
       >
       <canvas
         baseChart
@@ -21,8 +27,6 @@
       ></canvas>
     </div>
     <div class="container detail">
-      <app-crypto-info> </app-crypto-info>
+      <app-crypto-info></app-crypto-info>
     </div>
-    <app-company-holding></app-company-holding>
-  </div>
 </mat-card>

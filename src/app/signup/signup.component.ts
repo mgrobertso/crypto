@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { FooterComponent } from '../footer/footer.component';
 import { AuthService } from '../shared/service/auth.service';
-import { SignupRequest, User } from '../shared/user';
+import { SignupRequest, User } from '../shared/model/user';
 
 @Component({
   selector: 'app-signup',
@@ -14,8 +14,8 @@ import { SignupRequest, User } from '../shared/user';
 })
 export class SignupComponent implements OnInit {
   formData: SignupRequest = {
-    first_name: '',
-    last_name: '',
+    First_Name: '',
+    Last_Name: '',
     username: '',
     email: '',
     password: '',
@@ -55,8 +55,8 @@ export class SignupComponent implements OnInit {
     console.log('form built');
   }
   getUserForm(): SignupRequest {
-    this.formData.first_name = this.nameForm.get('firstNameCtrl')?.value;
-    this.formData.last_name = this.nameForm.get('lastNameCtrl')?.value;
+    this.formData.First_Name = this.nameForm.get('firstNameCtrl')?.value;
+    this.formData.Last_Name = this.nameForm.get('lastNameCtrl')?.value;
     this.formData.username = this.userNPassForm.get('userNameCtrl')?.value;
     this.formData.password = this.userNPassForm.get('passwordCtrl')?.value;
     this.formData.email = this.emailForm.get('emailCtrl')?.value;

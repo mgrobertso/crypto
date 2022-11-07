@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CryptoService } from '../shared/service/crypto.service';
-import { Holding } from './company-holding';
+import { Holding } from '../shared/model/company-holding';
 
 @Component({
   selector: 'app-company-holding',

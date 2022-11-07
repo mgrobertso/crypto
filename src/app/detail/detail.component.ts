@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChartDataset } from 'chart.js';
 import { Subscription } from 'rxjs';
-import { Icrypto } from '../crypto-data-component/crypto-data-component-datasource';
-import { cryptoInfo } from '../crypto-info/cryptoinfo';
+import { cryptoInfo } from '../shared/model/cryptoinfo';
 import { CryptoService } from '../shared/service/crypto.service';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { Icrypto } from '../shared/model/crypto-data-component-datasource';
+import { AuthService } from '../shared/service/auth.service';
 
 @Component({
   selector: 'app-detail',
@@ -15,12 +15,14 @@ import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 export class DetailComponent implements OnInit, OnDestroy {
   faDollarSign = faDollarSign;
   pageTitle = 'Detail';
-  cryptodata: Icrypto[] = [];
   chartData: number[] = [];
-  data: ChartDataset[] = [];
+  data: any = [];
   chartLabel: string[] = [];
-  sub: Subscription | undefined;
+  subCrypto: Subscription | undefined;
+  subChart: Subscription | undefined;
   crypto!: cryptoInfo;
+  cryptodata!: Icrypto[];
+  chartCrypto!: Icrypto;
   legend = '';
   nextPage = '';
   backPage = '';
@@ -28,22 +30,23 @@ export class DetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private cryptoDataService: CryptoService
+    private cryptoDataService: CryptoService,
+    private auth:AuthService
   ) {}
 
-  id = this.route.snapshot.paramMap.get('id');
+  id? = this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
-    this.sub = this.cryptoDataService
+    this.subCrypto = this.cryptoDataService
       .getThisCrypto(String(this.id))
       .subscribe((stream) => {
         this.crypto = stream;
       });
-
-    this.sub = this.cryptoDataService.getCrypto().subscribe((stream) => {
+    this.subChart = this.cryptoDataService.getCrypto().subscribe((stream) => {
       this.cryptodata = stream;
       for (const i in this.cryptodata) {
         if (this.cryptodata[i].id == this.id) {
+          this.chartCrypto = this.cryptodata[i];
           this.chartLabel.push(this.cryptodata[i].name);
           this.chartData.push(
             this.cryptodata[i].current_price,
@@ -82,28 +85,31 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   chartLabels = ['Current Price', 'High', 'Low'];
-
   chartOptions = {
     responsive: true,
   };
-
-  ngOnDestroy() {
-    this.sub?.unsubscribe();
-  }
-
   onBack() {
     this.router
-      .navigateByUrl('/', { skipLocationChange: true })
+      .navigate(['crypto'], { skipLocationChange: false })
       .then(() => this.router.navigate(['/crypto/' + this.backPage]));
   }
 
   onHome() {
-    this.router.navigate(['/crypto']);
+    this.router.navigate(['crypto']);
   }
 
   onNext() {
     this.router
-      .navigateByUrl('/', { skipLocationChange: true })
+      .navigate(['crypto'], { skipLocationChange: false })
       .then(() => this.router.navigate(['/crypto/' + this.nextPage]));
   }
+  onFavorite()
+  {
+    this.auth.addWatch(String(this.id))
+  }
+
+  ngOnDestroy() {
+    this.subCrypto?.unsubscribe();
+  }
+
 }

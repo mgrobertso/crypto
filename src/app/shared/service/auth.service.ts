@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map, Observable, tap } from 'rxjs';
-import { LoginRequest, SignupRequest, User } from '../user';
+import { LoginRequest, SignupRequest, User } from '../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class AuthService {
 
   readonly userInfo$ = this._userInfo.asObservable();
 
-  constructor(public http: HttpClient, private router: Router) {}
+  constructor(public http: HttpClient, private jwthelp: JwtHelperService, private router:Router) {}
 
   setState(d: boolean): void {
     this._isLoggedIn.next(d);
@@ -33,47 +34,74 @@ export class AuthService {
    * @returns Observable<User>
    */
   login(data: LoginRequest): Observable<User> {
-    return this.http.post<User>('http://localhost:3000/login', data).pipe(
-      map(
-        (user) => {
-          this.setUserState(user);
-          this._isLoggedIn.next(true);
-          return user;
-        },
-        catchError((err) => {
-          // catch error handling
-          throw err;
-        })
-      )
-    );
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+    });
+    const load = { username: data.username, password: data.password };
+    return this.http
+      .post<User>('https://localhost:7037/api/Auth/login', load, { headers })
+      .pipe(
+        map(
+          (user) => {
+            this.setUserState(user);
+            this._isLoggedIn.next(true);
+            localStorage.setItem('jwt', user.token);
+            return user;
+          },
+          catchError((err) => {
+            // catch error handling
+            throw err;
+          })
+        )
+      );
   }
 
   addWatch(id: string): void {
     this._userInfo.pipe(
       tap((watch) => {
         watch?.watch_list.push(id);
-        console.log(watch?.watch_list);
       })
     );
   }
+
+  isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem('jwt');
+    if (token && !this.jwthelp.isTokenExpired(token)) {
+      return true;
+    } else {
+      localStorage.removeItem("jwt");
+      return false;
+    }
+  };
 
   logout(): void {
     this.setState(false);
     this._userInfo.next(null);
-    localStorage.clear();
+    localStorage.removeItem('jwt');
+    this.router.navigateByUrl("/");
   }
 
   /**
    * login function
-   * @param formData - SignupRequest param for signup
+   * @param formData  SignupRequest param for signup
    * @returns Observable<User>
    */
   signup(formData: SignupRequest): Observable<User> {
-    return this.http.post<User>('http://localhost:3000/signup', formData).pipe(
-      catchError((err) => {
-        // catch error handling
-        throw err;
-      })
-    );
+    const payload = {
+      firstName: formData.First_Name,
+      lastName: formData.Last_Name,
+      username: formData.username,
+      password: formData.password,
+      email: formData.email,
+    };
+    return this.http
+      .post<User>('https://localhost:7037/api/Auth/register', payload)
+      .pipe(
+        catchError((err) => {
+          // catch error handling
+          throw err;
+        })
+      );
   }
 }

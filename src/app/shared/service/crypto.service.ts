@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { Icrypto } from '../../crypto-data-component/crypto-data-component-datasource';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { cryptoInfo } from '../../crypto-info/cryptoinfo';
-import { Holding } from 'src/app/company-holding/company-holding';
-import { Search } from '../../search-page/search';
+import { Icrypto } from '../model/crypto-data-component-datasource';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { cryptoInfo } from '../model/cryptoinfo';
+import { Holding } from 'src/app/shared/model/company-holding';
+import { Search } from '../model/search';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CryptoService {
-  private cryptosUrl =
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc';
+  private cryptosUrl = 'https://localhost:7037/api/Crypto';
   private url = 'https://api.coingecko.com/api/v3/companies/public_treasury/';
   private cryptoUrl = 'https://api.coingecko.com/api/v3/coins/';
   constructor(private http: HttpClient) {}
@@ -40,19 +39,12 @@ export class CryptoService {
 
   searchCrypto(name: string): Observable<Search> {
     return this.http
-      .get<Search>('https://api.coingecko.com/api/v3/search?query='+name)
+      .get<Search>('https://api.coingecko.com/api/v3/search?query=' + name)
       .pipe(
         tap((data) => console.log('All', JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
-
-  /* getuser(): Observable<user[]> {
-    return this.http.get<user[]>(this.url).pipe(
-      tap((data) => console.log('All', JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-  }*/
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';

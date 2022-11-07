@@ -3,10 +3,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Observable, Subscription, take } from 'rxjs';
 import { CryptoService } from '../shared/service/crypto.service';
-import { Icrypto } from './crypto-data-component-datasource';
+import { Icrypto } from '../shared/model/crypto-data-component-datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/service/auth.service';
+import { WatchListService } from '../shared/service/watchList.service';
 @Component({
   selector: 'app-crypto-data-component',
   templateUrl: './crypto-data-component.component.html',
@@ -35,7 +36,8 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
   constructor(
     private cryptoDataService: CryptoService,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    private List:WatchListService
   ) {}
 
   @ViewChild(MatSort)
@@ -66,25 +68,17 @@ export class CryptoDataComponentComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getCrypto(): void {
-    this.router
-      .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['/crypto/' + 'bitcoin']));
-  }
+
 
   addWatch(id: string) {
     this.auth.isLoggedIn$.pipe(take(1)
     ).subscribe((loggedIn) => {
-      // write code here against loggedIn
       if (loggedIn) {
         if (this.watchList.indexOf(id) === -1) {
           this.watchList.push(id);
           this.auth.addWatch(id);
-          console.log(
-            this.auth.userInfo$.subscribe((res) => {
-              console.log(res?.watch_list);
-            })
-          );
+          this.List.addToWatchList(this.watchList);
+
         }
       }
     });

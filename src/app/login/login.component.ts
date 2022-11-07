@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Subscription, take } from 'rxjs';
 import { AuthService } from '../shared/service/auth.service';
-import { LoginRequest } from '../shared/user';
+import { LoginRequest } from '../shared/model/user';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['crypto']);
         } else {
           // error handling here
+          console.log("There was an error");
         }
       });
   }

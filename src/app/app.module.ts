@@ -34,6 +34,12 @@ import { MatListModule } from '@angular/material/list';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CompanyHoldingComponent } from './company-holding/company-holding.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter()
+{
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   declarations: [
@@ -74,6 +80,13 @@ import { SearchPageComponent } from './search-page/search-page.component';
     FontAwesomeModule,
     MarkdownModule.forRoot(),
     StoreModule.forRoot({}, {}),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [],
+        disallowedRoutes:[],
+      }
+    })
   ],
   providers: [
     {
